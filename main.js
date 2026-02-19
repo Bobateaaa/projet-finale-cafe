@@ -1,6 +1,6 @@
-import * as THREE from 'https://unpkg.com/three@0.152.2/build/three.module.js';
-import { OrbitControls } from 'https://unpkg.com/three@0.152.2/examples/jsm/controls/OrbitControls.js';
-import { FBXLoader } from 'https://unpkg.com/three@0.152.2/examples/jsm/loaders/FBXLoader.js';
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -27,7 +27,7 @@ let mixer = null;
 const loader = new FBXLoader();
 
 // Change this path if your FBX is elsewhere inside `public/` or served root
-const fbxPath = 'model/cafeshopver.fbx';
+const fbxPath = '/model/cafeshopver.fbx';
 
 loader.load(
   fbxPath,
