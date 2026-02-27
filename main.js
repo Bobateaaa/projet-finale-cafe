@@ -208,66 +208,63 @@ const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
 loader.setDRACOLoader(dracoLoader);
 
-// MODEL
-const gltfPath = '/projet-finale-cafe/model/cafeshop_compressed.glb';
+// MODEL - use BASE_URL for proper path in both dev and production
+const gltfPath = import.meta.env.BASE_URL + 'model/cafeshop_compressed.glb';
 
-fetch(gltfPath)
-  .then(resp => {
-    console.log('Fetch response - Status:', resp.status, 'URL:', resp.url);
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-    return resp.arrayBuffer();
-  })
-  .then(buffer => {
-    console.log('Buffer received, size:', buffer.byteLength);
-    loader.parse(buffer, '', (gltf) => {
-      const model = gltf.scene;
-      model.scale.set(1, 1, 1);
+loader.load(
+  gltfPath,
+  (gltf) => {
+    const model = gltf.scene;
+    model.scale.set(1, 1, 1);
 
-      const box = new THREE.Box3().setFromObject(model);
-      const center = box.getCenter(new THREE.Vector3());
-      model.position.sub(center);
-      const originOffset = new THREE.Vector3(-45, -5, 0);
-      model.position.add(originOffset);
-      scene.add(model);
+    const box = new THREE.Box3().setFromObject(model);
+    const center = box.getCenter(new THREE.Vector3());
+    model.position.sub(center);
+    const originOffset = new THREE.Vector3(-45, -5, 0);
+    model.position.add(originOffset);
+    scene.add(model);
 
-      const selectedObjects = [];
-      model.traverse((child) => {
-        if (child.isMesh) selectedObjects.push(child);
-      });
-      if (outlinePass && selectedObjects.length > 0) {
-        outlinePass.selectedObjects = selectedObjects;
-      }
-
-      const size = box.getSize(new THREE.Vector3());
-      const maxDim = Math.max(size.x, size.y, size.z);
-      const fov = camera.fov * (Math.PI / 180);
-      let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
-      cameraZ *= zoomLevel;
-      camera.position.set(0, 0, cameraZ);
-      camera.near = Math.max(0.1, cameraZ / 100);
-      camera.far = cameraZ * 100;
-      camera.updateProjectionMatrix();
-      camera.lookAt(0, 0, 0);
-
-      controls.target.set(0, 0, 0);
-      controls.minPolarAngle = 0;
-      controls.maxPolarAngle = Math.PI / 2 - 0.05;
-      controls.enablePan = false;
-      controls.minDistance = Math.max(0.1, Math.min(cameraZ * 0.2, Math.max(size.x, size.y, size.z) * 0.25));
-      controls.maxDistance = cameraZ * 5;
-      controls.update();
-
-      if (gltf.animations && gltf.animations.length) {
-        mixer = new THREE.AnimationMixer(model);
-        gltf.animations.forEach((clip) => mixer.clipAction(clip).play());
-        console.log('Animations GLTF trouvées et en cours');
-      }
-      console.log('GLTF chargé et ajouté à la scène');
-    }, (err) => {
-      console.error('Parse error:', err);
+    const selectedObjects = [];
+    model.traverse((child) => {
+      if (child.isMesh) selectedObjects.push(child);
     });
-  })
-  .catch(err => console.error('Fetch error:', err));
+    if (outlinePass && selectedObjects.length > 0) {
+      outlinePass.selectedObjects = selectedObjects;
+    }
+
+    const size = box.getSize(new THREE.Vector3());
+    const maxDim = Math.max(size.x, size.y, size.z);
+    const fov = camera.fov * (Math.PI / 180);
+    let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
+    cameraZ *= zoomLevel;
+    camera.position.set(0, 0, cameraZ);
+    camera.near = Math.max(0.1, cameraZ / 100);
+    camera.far = cameraZ * 100;
+    camera.updateProjectionMatrix();
+    camera.lookAt(0, 0, 0);
+
+    controls.target.set(0, 0, 0);
+    controls.minPolarAngle = 0;
+    controls.maxPolarAngle = Math.PI / 2 - 0.05;
+    controls.enablePan = false;
+    controls.minDistance = Math.max(0.1, Math.min(cameraZ * 0.2, Math.max(size.x, size.y, size.z) * 0.25));
+    controls.maxDistance = cameraZ * 5;
+    controls.update();
+
+    if (gltf.animations && gltf.animations.length) {
+      mixer = new THREE.AnimationMixer(model);
+      gltf.animations.forEach((clip) => mixer.clipAction(clip).play());
+      console.log('Animations GLTF trouvées et en cours');
+    }
+    console.log('GLTF chargé et ajouté à la scène');
+  },
+  (progress) => {
+    console.log('Chargement:', (progress.loaded / progress.total * 100).toFixed(1) + '%');
+  },
+  (error) => {
+    console.error('Erreur de chargement GLTF:', error);
+  }
+);
 
 //-----------------------------------------------
 //  Particules pétales : petites pétales de cerisier tombant
