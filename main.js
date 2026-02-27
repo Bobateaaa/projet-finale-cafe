@@ -209,7 +209,7 @@ dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
 loader.setDRACOLoader(dracoLoader);
 
 // MODEL
-const gltfPath = import.meta.env.BASE_URL + 'model/cafeshop_compressed.glb';
+const gltfPath = `${import.meta.env.BASE_URL}model/cafeshop_compressed.glb`;
 
 loader.load(
   gltfPath,
@@ -278,7 +278,7 @@ loader.load(
 //  Particules pétales : petites pétales de cerisier tombant
 // ---------------------------------------------- 
 const textureLoader = new THREE.TextureLoader();
-const petalTexture = textureLoader.load(import.meta.env.BASE_URL + 'image/pixel-art-sakura-flower.png');
+const petalTexture = textureLoader.load(`${import.meta.env.BASE_URL}image/pixel-art-sakura-flower.png`);
 petalTexture.magFilter = THREE.NearestFilter;
 petalTexture.minFilter = THREE.NearestFilter;
 
