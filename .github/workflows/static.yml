@@ -26,6 +26,15 @@ jobs:
         with:
           lfs: true
       
+      - name: Pull LFS files
+        run: git lfs pull
+      
+      - name: Verify model file
+        run: |
+          ls -la public/model/
+          file public/model/cafeshop_compressed.glb
+          head -c 50 public/model/cafeshop_compressed.glb | xxd
+      
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
