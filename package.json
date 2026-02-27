@@ -5,6 +5,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "gh-pages": "^6.3.0",
     "three": "^0.182.0"
   },
   "devDependencies": {
