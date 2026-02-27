@@ -177,7 +177,7 @@ composer.addPass(outlinePass);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 // Limites par défaut pour empêcher de regarder sous le modèle
-controls.minPolarAngle = 0; // angle minimal (vue du dessus)
+controls.minPolarAngle = 0; // angle minimum (vue du dessus)
 controls.maxPolarAngle = Math.PI / 2 - 0.05; // empêche de passer sous l'horizon
 controls.enablePan = false; // désactiver le pan pour éviter de déplacer la caméra sous le modèle
 
@@ -209,7 +209,7 @@ dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
 loader.setDRACOLoader(dracoLoader);
 
 // MODEL
-const gltfPath = '/model/cafeshop_lighted.glb';
+const gltfPath = '/model/cafeshop_compressed.glb';
 
 loader.load(
   gltfPath,

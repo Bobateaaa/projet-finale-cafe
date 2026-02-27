@@ -2,22 +2,108 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>My first three.js app</title>
-    <link rel="stylesheet" href="data:text/css;base64,Ym9keSB7DQogICAgZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOw0KICAgIGJhY2tncm91bmQtY29sb3I6ICNmNGY0ZjQ7DQogICAgbWFyZ2luOiAwOw0KICAgIHBhZGRpbmc6IDA7DQoNCiAgICBkaXNwbGF5OiBmbGV4Ow0KICAgIGp1c3RpZnktY29udGVudDogY2VudGVyOw0KfQ0KDQppbWcgew0KICAgIHdpZHRoOiAyMHB4Ow0KICAgIGhlaWdodDogMjBweDsNCiAgICBhbGlnbi1zZWxmOiBjZW50ZXI7DQp9DQoNCm5hdiB7DQogICAgcG9zaXRpb246IGFic29sdXRlOw0KICAgIGJhY2tncm91bmQtY29sb3I6ICMxZDFkMWQ7DQogICAgY29sb3I6ICNmZmY7DQogICAgcGFkZGluZzogMTJweCAzMHB4Ow0KICAgIGRpc3BsYXk6IGZsZXg7DQogICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuOw0KICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7DQoNCiAgICB3aWR0aDogOTJ2dzsNCiAgICBoZWlnaHQ6IDUwcHg7DQogICAgbWFyZ2luLXRvcDogMiU7DQoNCiAgICBib3JkZXItcmFkaXVzOiA3cHg7DQp9DQoNCiNvcHRpb24gew0KICAgIGRpc3BsYXk6IGZsZXg7DQogICAgZmxleC1kaXJlY3Rpb246IHJvdzsNCiAgICBnYXA6IDIwcHg7DQp9DQoNCi5idG4gew0KICAgIGNvbG9yOiAjMDkwOTA5Ow0KICAgIGJhY2tncm91bmQtY29sb3I6IHJnYigyNDUsIDIyMCwgMjM4KTsNCiAgICB0ZXh0LWRlY29yYXRpb246IG5vbmU7DQogICAgZm9udC1zaXplOiAxOHB4Ow0KICAgIHBhZGRpbmc6IDEwcHggMzBweDsNCiAgICBib3JkZXItcmFkaXVzOiA1MHB4Ow0KICAgIGZvbnQtZmFtaWx5OiAnQ291cmllciBOZXcnLCBDb3VyaWVyLCBtb25vc3BhY2U7DQogICAgZm9udC13ZWlnaHQ6IDUwMDsNCn0NCg0KLmJ0bi1zd2l0Y2ggew0KICAgIHBhZGRpbmc6IDEycHg7DQogICAgZGlzcGxheTogZmxleDsNCn0=" media="screen">
-    <script type="module" crossorigin src="/assets/index-KV1539-1.js"></script>
+    <title>Café</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shop café inspirée des cafés modernes et japonais">
+    <meta name="author" content="Matilda Kang">
+    <link rel="stylesheet" href="/assets/style-CM9PtsWu.css" media="screen">
+    <script type="module" crossorigin src="/assets/index-CC696FZt.js"></script>
   </head>
 
-  <body>
+  <body>
+    <!-- ----------------------------------------
+    ⭐ Script Javascript (3)
+    ---------------------------------------- -->
 
+
+
+    <!-- ----------------------------------------
+    ⭐ Écran de début: au clic l'internaute accède au café
+    ---------------------------------------- -->
+    <div id="starting-screen" class="starting-screen">
+
+      <div class="starting-content">
+        <h1>Bienvenue</h1>
+        <p>Explorer notre café</p>
+        <button id="enter-btn" class="enter-button">Entrer</button>
+      </div>
+
+    </div>
+
+
+
+    <!-- ----------------------------------------
+    ⭐ Interface de l'utilisateur:
+        - à propos: information sur l'auteur et le projet
+        - menu: info sur les produits du café
+        - musique: contrôle de la musique d'ambiance
+    ---------------------------------------- -->
     <nav id="menu">
+
       <div id="option">
         <div class="btn">À propos</div>
-        <div class="btn">Menu</div>
+        <div class="btn" id="menu-trigger">Menu</div>
       </div>
-      <div id="light">
-        <div class="btn btn-switch"> <img src="/image/icon-dark-mode-50.png" alt=""> </div>
+
+      <div id="sound">
+        <div class="btn btn-sound"> <img src="/image/wave-sound.png" alt=""> </div>
       </div>
+
     </nav>
+
+
+
+    <!-- ----------------------------------------
+    ⭐ Pop-up à propos: information sur l'auteur et le projet
+    ---------------------------------------- -->
+    <div id="about" class="about-overlay">
+      <div class="about-content">
+        
+        <button class="about-close">&times;</button>
+
+        <h2>À propos</h2>
+
+        <section>
+          <img src="" alt="">
+            <div>
+            <h3>Matilda Kang</h3>
+            <p>Étudiante en Techniques d'intégration Multimédia</p>
+          </div>
+        </section>
+        
+        <section>
+          <h3>Projet de fin d'études</h3>
+          <p>description</p>
+        </section>
+
+      </div>
+    </div>
+
+
+
+    <!-- ----------------------------------------
+    ⭐ Pop-up menu: information sur les produits du café
+    ---------------------------------------- -->
+    <div id="menu-popup" class="menu-overlay">
+      <div class="menu-content">
+        <button class="menu-close">&times;</button>
+        
+        <div class="menu-header">
+          <h2>Menu</h2>
+          <!-- Barre de recherche pour chercher des produits spécifiques dans le café -->
+          <input type="text" id="menu-search" class="menu-search" placeholder="Rechercher...">
+          <div class="menu-categories" id="menu-categories"></div>
+        </div>
+
+        <!-- Box qui contient les la liste des articles + les détails sur l'articles-->
+        <div class="menu-container">
+          <div class="menu-items" id="menu-items"></div>
+          <div class="menu-detail" id="menu-detail"></div>
+        </div>
+      </div>
+    </div>
+
+
 
   </body>
 </html>
