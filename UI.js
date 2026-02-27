@@ -8,7 +8,7 @@ const menuItems = [
     category: 'Boissons',
     description: 'Un classique intense et savoureux',
     ingredients: ['Café arabica premium', 'Eau filtrée'],
-    image: '/image/espresso.jpg',
+    image: '',
     sizes: { 'Simple': 2.50, 'Double': 3.50 },
     calories: 3
   },
@@ -18,7 +18,7 @@ const menuItems = [
     category: 'Boissons',
     description: 'Mélange parfait de café et mousse',
     ingredients: ['Café arabica', 'Lait vapeur', 'Mousse de lait'],
-    image: '/image/cappuccino.jpg',
+    image: '',
     sizes: { 'Petit (250ml)': 3.50, 'Moyen (350ml)': 4.00, 'Grand (450ml)': 4.50 },
     calories: 120
   },
@@ -28,7 +28,7 @@ const menuItems = [
     category: 'Boissons',
     description: 'Café doux avec beaucoup de lait',
     ingredients: ['Café arabica', 'Lait entier', 'Mousse fine'],
-    image: '/image/latte.jpg',
+    image: '',
     sizes: { 'Petit (250ml)': 3.50, 'Moyen (350ml)': 4.00, 'Grand (450ml)': 4.50 },
     calories: 150
   },
@@ -38,7 +38,7 @@ const menuItems = [
     category: 'Pâtisseries',
     description: 'Croissant feuilleté fait maison',
     ingredients: ['Farine premium', 'Beurre normand', 'Sel de mer', 'Levure'],
-    image: '/image/croissant.jpg',
+    image: '',
     sizes: { 'Unité': 2.80 },
     calories: 270
   },
@@ -48,7 +48,7 @@ const menuItems = [
     category: 'Pâtisseries',
     description: 'Chocolat riche et pâte fondante',
     ingredients: ['Farine premium', 'Chocolat noir 70%', 'Beurre', 'Levure'],
-    image: '/image/pain-chocolat.jpg',
+    image: '',
     sizes: { 'Unité': 2.50 },
     calories: 290
   },
@@ -58,7 +58,7 @@ const menuItems = [
     category: 'Pâtisseries',
     description: 'Pommes fraîches et pâte croustillante',
     ingredients: ['Pommes locales', 'Pâte brisée', 'Sucre roux', 'Cannelle'],
-    image: '/image/tarte-pommes.jpg',
+    image: '',
     sizes: { 'Part': 3.80, 'Tarte entière': 12.00 },
     calories: 320
   },
@@ -68,7 +68,7 @@ const menuItems = [
     category: 'Encas',
     description: 'Laitue croustillante et sauce maison',
     ingredients: ['Laitue romaine', 'Parmesan', 'Croûtons', 'Sauce César maison', 'Poulet grillé'],
-    image: '/image/salade-cesar.jpg',
+    image: '',
     sizes: { 'Regular': 7.50, 'Large': 9.50 },
     calories: 280
   },
