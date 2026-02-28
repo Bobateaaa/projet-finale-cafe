@@ -106,6 +106,17 @@ const menuItems = [
 
 
 // ============================================
+// Gestion du Splash Screen
+// ============================================
+const startingScreen = document.getElementById('starting-screen'); // référence à l'écran de démarrage
+const enterBtn = document.getElementById('enter-btn'); // référence au bouton pour entrer dans le café
+
+//Au clic le bouton le splash screen disparaît
+enterBtn.addEventListener('click', () => {
+  startingScreen.classList.add('hidden');
+});
+
+// ============================================
 // Pop-up "À propos" 
 // ============================================
 const initAboutPopup = () => {

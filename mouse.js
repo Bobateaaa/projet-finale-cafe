@@ -26,4 +26,4 @@ cursorImg.onload = () => {
   animateCursor();
 };
 
-cursorImg.src = '/image/pixel-art-sakura-flower.png';
+cursorImg.src = import.meta.env.BASE_URL + 'image/pixel-art-sakura-flower.png';

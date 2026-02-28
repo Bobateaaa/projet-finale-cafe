@@ -1,3 +1,4 @@
+//importer les modules nécessaires de Three.js et les loaders pour charger les modèles 3D
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -16,8 +17,21 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 // Variables 
 // ============================================
 const zoomLevel = 0.1; // controler le zoom
-const startingScreen = document.getElementById('starting-screen'); // référence à l'écran de démarrage
-const enterBtn = document.getElementById('enter-btn'); // référence au bouton pour entrer dans le café
+// Animation
+const clock = new THREE.Clock();
+let mixer = null;
+
+// Charger GLTF/GLB
+const loader = new GLTFLoader();
+
+// Si le GLB utilise la compression Draco, initialiser DRACOLoader.
+// On pointe par défaut vers le CDN officiel Draco; changez pour un chemin local si nécessaire.
+const dracoLoader = new DRACOLoader();
+dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
+loader.setDRACOLoader(dracoLoader);
+
+// MODEL - use BASE_URL for proper path in both dev and production
+const gltfPath = import.meta.env.BASE_URL + 'model/cafeshop_compressed.glb';
 
 
 
@@ -25,14 +39,9 @@ const enterBtn = document.getElementById('enter-btn'); // référence au bouton 
 // Initialisation de la scène 3D
 // ============================================
 
-//Au clic le bouton le splash screen disparaît
-enterBtn.addEventListener('click', () => {
-  startingScreen.classList.add('hidden');
-});
-
-//Initalisation de la scène etde la caméra
+//créez la scène et la caméra
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(85, window.innerWidth / window.innerHeight, 0.1, 1000);
 
 //-------------------------------
 // Section: Post-traitement
@@ -176,10 +185,13 @@ composer.addPass(outlinePass);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
+
 // Limites par défaut pour empêcher de regarder sous le modèle
-controls.minPolarAngle = 0; // angle minimum (vue du dessus)
-controls.maxPolarAngle = Math.PI / 2 - 0.05; // empêche de passer sous l'horizon
-controls.enablePan = false; // désactiver le pan pour éviter de déplacer la caméra sous le modèle
+controls.minPolarAngle = 0;
+controls.maxPolarAngle = (Math.PI / 2) + 0.05; 
+controls.enablePan = false; 
+controls.minDistance = 1;
+controls.maxDistance = 130;
 
 //------------------------------
 // Ajout de lumières pour un éclairage 
@@ -194,22 +206,6 @@ scene.add(blueLight);
 
 scene.add(new THREE.AmbientLight(0x404040, 1.0));
 
-// Animation
-const clock = new THREE.Clock();
-let mixer = null;
-
-
-// Charger GLTF/GLB
-const loader = new GLTFLoader();
-
-// Si le GLB utilise la compression Draco, initialiser DRACOLoader.
-// On pointe par défaut vers le CDN officiel Draco; changez pour un chemin local si nécessaire.
-const dracoLoader = new DRACOLoader();
-dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
-loader.setDRACOLoader(dracoLoader);
-
-// MODEL - use BASE_URL for proper path in both dev and production
-const gltfPath = import.meta.env.BASE_URL + 'model/cafeshop_compressed.glb';
 
 loader.load(
   gltfPath,
@@ -220,7 +216,7 @@ loader.load(
     const box = new THREE.Box3().setFromObject(model);
     const center = box.getCenter(new THREE.Vector3());
     model.position.sub(center);
-    const originOffset = new THREE.Vector3(-45, -5, 0);
+    const originOffset = new THREE.Vector3(0, -5, 0);
     model.position.add(originOffset);
     scene.add(model);
 
@@ -243,12 +239,7 @@ loader.load(
     camera.updateProjectionMatrix();
     camera.lookAt(0, 0, 0);
 
-    controls.target.set(0, 0, 0);
-    controls.minPolarAngle = 0;
-    controls.maxPolarAngle = Math.PI / 2 - 0.05;
-    controls.enablePan = false;
-    controls.minDistance = Math.max(0.1, Math.min(cameraZ * 0.2, Math.max(size.x, size.y, size.z) * 0.25));
-    controls.maxDistance = cameraZ * 5;
+    controls.target.set(0, 0, 10);
     controls.update();
 
     if (gltf.animations && gltf.animations.length) {
@@ -266,9 +257,10 @@ loader.load(
   }
 );
 
-//-----------------------------------------------
+
+//=========================================================
 //  Particules pétales : petites pétales de cerisier tombant
-// ---------------------------------------------- 
+//=========================================================
 const textureLoader = new THREE.TextureLoader();
 const petalTexture = textureLoader.load(import.meta.env.BASE_URL + 'image/pixel-art-sakura-flower.png');
 petalTexture.magFilter = THREE.NearestFilter;
