@@ -185,13 +185,15 @@ composer.addPass(outlinePass);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
+controls.enablePan = false; //empecher le déplacement latéral
 
 // Limites par défaut pour empêcher de regarder sous le modèle
 controls.minPolarAngle = 0;
 controls.maxPolarAngle = (Math.PI / 2) + 0.05; 
-controls.enablePan = false; 
 controls.minDistance = 1;
 controls.maxDistance = 130;
+controls.autoRotate = true; //permet la cam du tourner automatiquement
+controls.autoRotateSpeed = -0.1; //assigner la vit de rotation de autoRotate
 
 //------------------------------
 // Ajout de lumières pour un éclairage 
