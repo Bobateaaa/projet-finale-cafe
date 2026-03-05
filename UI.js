@@ -1,15 +1,24 @@
-// ============================================
-// Données sur le menu avec l'utilisation d'un array et des objets
-// ============================================
+/* ============================================
+Données sur le menu avec l'utilisation d'un array et des objets
+
+id(number): un identifiant unique pour chaque article
+name(string): le nom de l'article
+category(string): la catégorie à laquelle appartient l'article (ex: Boissons, Desserts, Repas)
+description(string): une brève description de l'article
+ingredients(array): une liste des ingrédients utilisés dans l'article
+image(string): une URL vers une image de l'article
+sizes(object): un objet contenant les différentes tailles disponibles et leurs prix respectifs
+calories(number): le nombre de calories pour chaque portion
+============================================*/ 
 const menuItems = [
   {
     id: 1,
     name: 'Espresso',
     category: 'Boissons',
     description: 'Un classique intense et savoureux',
-    ingredients: ['Café arabica premium', 'Eau filtrée'],
+    ingredients: ['Café arabica torréfié', 'Eau filtrée sous pression'],
     image: '',
-    sizes: { 'Simple': 2.50, 'Double': 3.50 },
+    sizes: { 'Petit (250ml)': 2.50, 'Moyen (350ml)': 3.00, 'Grand (450ml)': 3.50 },
     calories: 3
   },
   {
@@ -17,7 +26,7 @@ const menuItems = [
     name: 'Cappuccino',
     category: 'Boissons',
     description: 'Mélange parfait de café et mousse',
-    ingredients: ['Café arabica', 'Lait vapeur', 'Mousse de lait'],
+    ingredients: ['Espresso double', 'Lait entier vapeur', 'Mousse de lait crémeuse', 'Cacao en poudre (optionnel)'],
     image: '',
     sizes: { 'Petit (250ml)': 3.50, 'Moyen (350ml)': 4.00, 'Grand (450ml)': 4.50 },
     calories: 120
@@ -27,7 +36,7 @@ const menuItems = [
     name: 'Latte',
     category: 'Boissons',
     description: 'Café doux avec beaucoup de lait',
-    ingredients: ['Café arabica', 'Lait entier', 'Mousse fine'],
+    ingredients: ['Espresso', 'Lait entier chaud', 'Mousse légère', 'Sirop vanille (optionnel)'],
     image: '',
     sizes: { 'Petit (250ml)': 3.50, 'Moyen (350ml)': 4.00, 'Grand (450ml)': 4.50 },
     calories: 150
@@ -35,9 +44,9 @@ const menuItems = [
   {
     id: 4,
     name: 'Croissant au Beurre',
-    category: 'Pâtisseries',
+    category: 'Desserts',
     description: 'Croissant feuilleté fait maison',
-    ingredients: ['Farine premium', 'Beurre normand', 'Sel de mer', 'Levure'],
+    ingredients: ['Farine de blé T45', 'Beurre AOP 82% MG', 'Lait entier', 'Sucre', 'Sel', 'Levure boulangère', 'Œuf (dorure)'],
     image: '',
     sizes: { 'Unité': 2.80 },
     calories: 270
@@ -45,9 +54,9 @@ const menuItems = [
   {
     id: 5,
     name: 'Pain au Chocolat',
-    category: 'Pâtisseries',
+    category: 'Desserts',
     description: 'Chocolat riche et pâte fondante',
-    ingredients: ['Farine premium', 'Chocolat noir 70%', 'Beurre', 'Levure'],
+    ingredients: ['Pâte feuilletée levée', 'Beurre', 'Bâtons de chocolat noir 55%', 'Sucre', 'Sel', 'Levure', 'Œuf'],
     image: '',
     sizes: { 'Unité': 2.50 },
     calories: 290
@@ -55,9 +64,9 @@ const menuItems = [
   {
     id: 6,
     name: 'Tarte aux Pommes',
-    category: 'Pâtisseries',
+    category: 'Desserts',
     description: 'Pommes fraîches et pâte croustillante',
-    ingredients: ['Pommes locales', 'Pâte brisée', 'Sucre roux', 'Cannelle'],
+    ingredients: ['Pommes Golden', 'Pâte brisée (farine, beurre, eau)', 'Compote de pommes', 'Sucre roux', 'Cannelle', 'Nappage abricot', 'Beurre'],
     image: '',
     sizes: { 'Part': 3.80, 'Tarte entière': 12.00 },
     calories: 320
@@ -65,9 +74,9 @@ const menuItems = [
   {
     id: 7,
     name: 'Salade César Classique',
-    category: 'Encas',
+    category: 'Repas',
     description: 'Laitue croustillante et sauce maison',
-    ingredients: ['Laitue romaine', 'Parmesan', 'Croûtons', 'Sauce César maison', 'Poulet grillé'],
+    ingredients: ['Laitue romaine', 'Parmesan reggiano', 'Croûtons à l\'ail', 'Poulet grillé', 'Sauce César (jaune d\'œuf, anchois, ail, moutarde, huile d\'olive, citron)', 'Poivre noir'],
     image: '',
     sizes: { 'Regular': 7.50, 'Large': 9.50 },
     calories: 280
@@ -75,9 +84,9 @@ const menuItems = [
   {
     id: 8,
     name: 'Sandwich Club',
-    category: 'Encas',
+    category: 'Repas',
     description: 'Triple étage savoureux',
-    ingredients: ['Pain complet', 'Jambon de qualité', 'Poulet grillé', 'Bacon', 'Salade', 'Tomate', 'Fromage', 'Mayonnaise'],
+    ingredients: ['Pain de mie toasté', 'Blanc de poulet grillé', 'Bacon croustillant', 'Laitue iceberg', 'Tomate fraîche', 'Œuf dur', 'Mayonnaise maison', 'Moutarde de Dijon'],
     image: '/image/sandwich.jpg',
     sizes: { 'Demi': 6.50, 'Entier': 9.00 },
     calories: 450
@@ -87,9 +96,9 @@ const menuItems = [
     name: 'Jus d\'Orange Frais',
     category: 'Boissons',
     description: 'Pressé à froid chaque matin',
-    ingredients: ['Oranges fraîches Siciliennes'],
+    ingredients: ['Oranges Valencia fraîches', 'Pulpe naturelle'],
     image: '/image/jus-orange.jpg',
-    sizes: { 'Verre (250ml)': 3.00, 'Pichet (750ml)': 7.50 },
+    sizes: { 'Petit (250ml)': 3.00, 'Moyen (350ml)': 4.20, 'Grand (450ml)': 5.40 },
     calories: 100
   },
   {
@@ -97,10 +106,310 @@ const menuItems = [
     name: 'Smoothie Fraise-Banane',
     category: 'Boissons',
     description: 'Frais et protéiné',
-    ingredients: ['Fraises fraîches', 'Banane', 'Yaourt', 'Miel', 'Glaçons'],
+    ingredients: ['Fraises fraîches', 'Banane mûre', 'Yaourt grec nature', 'Lait d\'amande', 'Miel d\'acacia', 'Graines de chia'],
     image: '/image/smoothie.jpg',
-    sizes: { 'Moyen (300ml)': 4.50, 'Grand (450ml)': 5.50 },
+    sizes: { 'Petit (250ml)': 4.00, 'Moyen (350ml)': 4.50, 'Grand (450ml)': 5.50 },
     calories: 180
+  },
+  {
+    id: 11,
+    name: 'Strawberry Horchata',
+    category: 'Boissons',
+    description: 'Horchata crémeuse à la fraise, douce et rafraîchissante',
+    ingredients: ['Riz blanc trempé', 'Eau', 'Lait concentré', 'Cannelle en bâton', 'Extrait de vanille', 'Fraises fraîches', 'Sucre', 'Amandes'],
+    image: '',
+    sizes: { 'Petit (250ml)': 4.30, 'Moyen (350ml)': 4.80, 'Grand (450ml)': 5.80 },
+    calories: 210
+  },
+  {
+    id: 12,
+    name: 'Citron Yuzu Tea',
+    category: 'Boissons',
+    description: 'Thé glacé agrumé au yuzu et citron',
+    ingredients: ['Thé vert sencha', 'Marmelade de yuzu', 'Jus de citron frais', 'Miel', 'Zeste de citron', 'Eau chaude', 'Glaçons'],
+    image: '',
+    sizes: { 'Petit (250ml)': 3.80, 'Moyen (350ml)': 4.20, 'Grand (450ml)': 5.20 },
+    calories: 95
+  },
+  {
+    id: 13,
+    name: 'Tiramisu Cold Brew',
+    category: 'Boissons',
+    description: 'Cold brew gourmand inspiré du tiramisu',
+    ingredients: ['Cold brew 12h', 'Mascarpone', 'Crème fouettée', 'Sirop de vanille', 'Poudre de cacao amer', 'Biscuits savoiardi émiettés', 'Sucre muscovado'],
+    image: '',
+    sizes: { 'Petit (250ml)': 4.70, 'Moyen (350ml)': 5.20, 'Grand (450ml)': 6.20 },
+    calories: 190
+  },
+  {
+    id: 14,
+    name: 'Passion Lychee Capiroska',
+    category: 'Boissons',
+    description: 'Mocktail tropical au fruit de la passion et litchi',
+    ingredients: ['Pulpe de fruit de la passion', 'Litchis en sirop', 'Jus de citron vert', 'Sirop de sucre de canne', 'Eau pétillante', 'Feuilles de menthe', 'Glaçons pilés'],
+    image: '',
+    sizes: { 'Petit (250ml)': 4.60, 'Moyen (350ml)': 5.00, 'Grand (450ml)': 5.60 },
+    calories: 120
+  },
+  {
+    id: 15,
+    name: 'Peach Milkshake',
+    category: 'Boissons',
+    description: 'Milkshake pêche onctueux et fruité',
+    ingredients: ['Pêches mûres', 'Glace vanille', 'Lait entier', 'Crème fraîche', 'Sirop de pêche', 'Chantilly'],
+    image: '',
+    sizes: { 'Petit (250ml)': 4.40, 'Moyen (350ml)': 4.90, 'Grand (450ml)': 5.90 },
+    calories: 260
+  },
+  {
+    id: 16,
+    name: 'Korean Banana Milk',
+    category: 'Boissons',
+    description: 'Boisson lactée coréenne à la banane',
+    ingredients: ['Bananes mûres', 'Lait entier', 'Lait concentré sucré', 'Extrait de vanille', 'Sucre', 'Pincée de sel'],
+    image: '',
+    sizes: { 'Petit (250ml)': 3.90, 'Grand (450ml)': 5.20 },
+    calories: 170
+  },
+  {
+    id: 17,
+    name: 'Hwachae',
+    category: 'Boissons',
+    description: 'Punch coréen aux fruits frais et soda léger',
+    ingredients: ['Pastèque fraîche', 'Fraises', 'Kiwi', 'Raisins', 'Sirop de sucre', 'Sprite ou 7Up', 'Glaçons', 'Feuilles de menthe'],
+    image: '',
+    sizes: { 'Petit (250ml)': 4.80, 'Grand (450ml)': 6.20 },
+    calories: 140
+  },
+  {
+    id: 18,
+    name: 'Hibiscus Lemonade',
+    category: 'Boissons',
+    description: 'Limonade florale à l\'hibiscus',
+    ingredients: ['Fleurs d\'hibiscus séchées', 'Jus de citron frais', 'Sucre de canne', 'Eau froide', 'Zeste de citron', 'Glaçons'],
+    image: '',
+    sizes: { 'Petit (250ml)': 3.90, 'Moyen (350ml)': 4.30, 'Grand (450ml)': 5.30 },
+    calories: 105
+  },
+  {
+    id: 19,
+    name: 'Pomegranate Sangria',
+    category: 'Boissons',
+    description: 'Sangria sans alcool à la grenade et agrumes',
+    ingredients: ['Jus de grenade pur', 'Jus d\'orange', 'Jus de citron', 'Tranches d\'orange et citron', 'Grains de grenade', 'Eau pétillante', 'Sirop d\'agave', 'Cannelle'],
+    image: '',
+    sizes: { 'Petit (250ml)': 4.80, 'Moyen (350ml)': 5.20, 'Grand (450ml)': 5.90 },
+    calories: 130
+  },
+  {
+    id: 20,
+    name: 'Watermelon Spritz',
+    category: 'Boissons',
+    description: 'Spritz sans alcool ultra frais à la pastèque',
+    ingredients: ['Pastèque fraîche mixée', 'Jus de citron vert', 'Feuilles de menthe', 'Sirop de sucre', 'Eau pétillante', 'Glaçons'],
+    image: '',
+    sizes: { 'Petit (250ml)': 4.40, 'Grand (450ml)': 5.40 },
+    calories: 90
+  },
+  {
+    id: 21,
+    name: 'Mango Pomelo Sago',
+    category: 'Boissons',
+    description: 'Dessert-boisson asiatique à la mangue, pomelo et perles de sagou',
+    ingredients: ['Mangue Alphonso', 'Chair de pomelo rose', 'Perles de sagou cuites', 'Lait de coco', 'Lait évaporé', 'Sucre', 'Glaçons'],
+    image: '',
+    sizes: { 'Petit (250ml)': 5.20, 'Grand (450ml)': 6.20 },
+    calories: 230
+  },
+  {
+    id: 22,
+    name: 'Virgin Mojito',
+    category: 'Boissons',
+    description: 'Mocktail menthe-citron vert classique et pétillant',
+    ingredients: ['Feuilles de menthe fraîche', 'Citron vert en quartiers', 'Sucre de canne', 'Eau gazeuse', 'Glaçons pilés', 'Angostura bitters (optionnel)'],
+    image: '',
+    sizes: { 'Petit (250ml)': 4.10, 'Moyen (350ml)': 4.50, 'Grand (450ml)': 5.10 },
+    calories: 85
+  },
+  {
+    id: 23,
+    name: 'Shirley Temple',
+    category: 'Boissons',
+    description: 'Mocktail rétro pétillant et fruité',
+    ingredients: ['Ginger ale', 'Sirop de grenadine', 'Jus de citron frais', 'Cerise au marasquin', 'Tranche d\'orange', 'Glaçons'],
+    image: '',
+    sizes: { 'Petit (250ml)': 3.90, 'Grand (450ml)': 4.90 },
+    calories: 110
+  },
+  {
+    id: 24,
+    name: 'Nojito Framboise',
+    category: 'Boissons',
+    description: 'Twist framboise du mojito sans alcool',
+    ingredients: ['Framboises fraîches', 'Feuilles de menthe', 'Citron vert', 'Sirop de framboise', 'Eau pétillante', 'Sucre de canne', 'Glaçons'],
+    image: '',
+    sizes: { 'Petit (250ml)': 4.50, 'Moyen (350ml)': 4.90, 'Grand (450ml)': 5.50 },
+    calories: 100
+  },
+  {
+    id: 25,
+    name: 'Crème Brûlée',
+    category: 'Desserts',
+    description: 'Crème vanille soyeuse et croûte caramélisée',
+    ingredients: ['Crème fraîche 35%', 'Jaunes d\'œufs', 'Sucre fin', 'Gousse de vanille Bourbon', 'Cassonade (pour caraméliser)'],
+    image: '',
+    sizes: { 'Unité': 4.80 },
+    calories: 310
+  },
+  {
+    id: 26,
+    name: 'Mochi Matcha',
+    category: 'Desserts',
+    description: 'Mochi tendre au cœur matcha',
+    ingredients: ['Farine de riz gluant (mochiko)', 'Poudre de matcha Uji', 'Sucre', 'Eau', 'Fécule de maïs', 'Pâte de haricots rouges sucrée (anko)'],
+    image: '',
+    sizes: { '2 pièces': 4.20, '4 pièces': 7.80 },
+    calories: 220
+  },
+  {
+    id: 27,
+    name: 'Panna Cotta',
+    category: 'Desserts',
+    description: 'Dessert italien frais et léger',
+    ingredients: ['Crème fraîche', 'Lait entier', 'Sucre', 'Gélatine en feuilles', 'Extrait de vanille', 'Coulis de fruits rouges (framboise, fraise, mûre)'],
+    image: '',
+    sizes: { 'Unité': 4.50 },
+    calories: 260
+  },
+  {
+    id: 28,
+    name: 'Cheesecake Yuzu',
+    category: 'Desserts',
+    description: 'Cheesecake crémeux avec touche d\'agrume',
+    ingredients: ['Cream cheese Philadelphia', 'Jus et zeste de yuzu', 'Œufs', 'Sucre', 'Crème fraîche', 'Biscuits digestifs', 'Beurre fondu'],
+    image: '',
+    sizes: { 'Part': 5.20 },
+    calories: 340
+  },
+  {
+    id: 29,
+    name: 'Wrap Poulet',
+    category: 'Repas',
+    description: 'Wrap grillé au poulet et sauce maison',
+    ingredients: ['Tortilla de blé', 'Filet de poulet mariné grillé', 'Laitue romaine', 'Tomates cerises', 'Oignon rouge', 'Sauce yaourt-citron', 'Paprika fumé'],
+    image: '',
+    sizes: { 'Petit': 6.80, 'Grand': 8.90 },
+    calories: 420
+  },
+  {
+    id: 30,
+    name: 'Bagel Saumon',
+    category: 'Repas',
+    description: 'Bagel fondant au saumon fumé',
+    ingredients: ['Bagel nature toasté', 'Saumon fumé sauvage', 'Cream cheese', 'Câpres', 'Oignon rouge émincé', 'Concombre', 'Aneth frais', 'Jus de citron'],
+    image: '',
+    sizes: { 'Unité': 8.50 },
+    calories: 390
+  },
+  {
+    id: 31,
+    name: 'Croque Truffe',
+    category: 'Repas',
+    description: 'Croque gourmet au fromage et truffe',
+    ingredients: ['Pain de mie brioché', 'Gruyère râpé', 'Comté AOP', 'Crème fraîche à la truffe noire', 'Jambon blanc supérieur', 'Beurre', 'Huile de truffe'],
+    image: '',
+    sizes: { 'Unité': 9.20 },
+    calories: 470
+  },
+  {
+    id: 32,
+    name: 'Bowl Falafel',
+    category: 'Repas',
+    description: 'Bowl végétarien frais et croustillant',
+    ingredients: ['Falafels maison (pois chiches, persil, coriandre, cumin)', 'Quinoa', 'Concombre', 'Tomates', 'Chou rouge', 'Houmous', 'Sauce tahini', 'Grenade', 'Persil frais'],
+    image: '',
+    sizes: { 'Regular': 8.20, 'Large': 10.20 },
+    calories: 430
+  },
+  {
+    id: 33,
+    name: 'Tarte Tatin',
+    category: 'Desserts',
+    description: 'Tarte caramélisée aux pommes renversée',
+    ingredients: ['Pommes Granny Smith', 'Pâte feuilletée pur beurre', 'Beurre demi-sel', 'Sucre', 'Gousse de vanille', 'Crème fraîche (service)'],
+    image: '',
+    sizes: { 'Part': 4.20, 'Tarte entière': 14.00 },
+    calories: 330
+  },
+  {
+    id: 34,
+    name: 'Chicken Pot Pie Soup',
+    category: 'Repas',
+    description: 'Soupe crémeuse style chicken pot pie',
+    ingredients: ['Poulet rôti effiloché', 'Pommes de terre', 'Carottes', 'Petits pois', 'Céleri', 'Oignon', 'Bouillon de poulet', 'Crème fraîche', 'Beurre', 'Farine', 'Thym', 'Feuilleté pour garnir'],
+    image: '',
+    sizes: { 'Bol': 7.20, 'Grand bol': 9.40 },
+    calories: 420
+  },
+  {
+    id: 35,
+    name: 'Soupe Champignon',
+    category: 'Repas',
+    description: 'Velouté onctueux aux champignons',
+    ingredients: ['Champignons de Paris', 'Champignons shiitake', 'Oignon', 'Ail', 'Bouillon de légumes', 'Crème fraîche', 'Beurre', 'Thym frais', 'Persil', 'Sel et poivre'],
+    image: '',
+    sizes: { 'Bol': 6.50, 'Grand bol': 8.40 },
+    calories: 280
+  },
+  {
+    id: 36,
+    name: 'Soupe Oignon',
+    category: 'Repas',
+    description: 'Soupe à l\'oignon gratinée et réconfortante',
+    ingredients: ['Oignons jaunes caramélisés', 'Bouillon de bœuf', 'Vin blanc sec', 'Beurre', 'Farine', 'Pain baguette grillé', 'Gruyère râpé', 'Thym', 'Feuille de laurier'],
+    image: '',
+    sizes: { 'Bol': 6.80, 'Grand bol': 8.80 },
+    calories: 310
+  },
+  {
+    id: 37,
+    name: 'Tomate Basilic',
+    category: 'Repas',
+    description: 'Soupe tomate-basilic douce et parfumée',
+    ingredients: ['Tomates San Marzano', 'Basilic frais', 'Ail', 'Oignon', 'Bouillon de légumes', 'Crème légère', 'Huile d\'olive extra vierge', 'Sucre', 'Sel et poivre'],
+    image: '',
+    sizes: { 'Bol': 6.20, 'Grand bol': 8.10 },
+    calories: 230
+  },
+  {
+    id: 38,
+    name: 'Minestrone',
+    category: 'Repas',
+    description: 'Soupe italienne aux légumes et pâtes',
+    ingredients: ['Haricots blancs cannellini', 'Courgettes', 'Carottes', 'Céleri', 'Tomates concassées', 'Pâtes ditalini', 'Bouillon de légumes', 'Parmesan', 'Huile d\'olive', 'Ail', 'Romarin'],
+    image: '',
+    sizes: { 'Bol': 6.90, 'Grand bol': 8.90 },
+    calories: 260
+  },
+  {
+    id: 39,
+    name: 'Soupe Lentilles',
+    category: 'Repas',
+    description: 'Soupe nourrissante aux lentilles épicées',
+    ingredients: ['Lentilles vertes du Puy', 'Carottes', 'Céleri', 'Oignon', 'Tomates concassées', 'Ail', 'Cumin', 'Coriandre moulue', 'Paprika', 'Bouillon de légumes', 'Jus de citron', 'Huile d\'olive'],
+    image: '',
+    sizes: { 'Bol': 6.40, 'Grand bol': 8.30 },
+    calories: 290
+  },
+  {
+    id: 40,
+    name: 'Pho Poulet',
+    category: 'Repas',
+    description: 'Bouillon parfumé au poulet et nouilles de riz',
+    ingredients: ['Bouillon de poulet parfumé (anis étoilé, cannelle, clou de girofle)', 'Poulet poché', 'Nouilles de riz', 'Oignon grillé', 'Gingembre', 'Sauce poisson (nuoc mam)', 'Germes de soja', 'Basilic thaï', 'Coriandre', 'Citron vert', 'Piment', 'Sauce hoisin'],
+    image: '',
+    sizes: { 'Bol': 7.50, 'Grand bol': 9.70 },
+    calories: 350
   }
 ];
 
@@ -117,7 +426,7 @@ enterBtn.addEventListener('click', () => {
 });
 
 // ============================================
-// Pop-up "À propos" 
+// Gestion about me
 // ============================================
 const initAboutPopup = () => {
   const aboutButton = document.querySelector('.btn:nth-of-type(1)');
@@ -143,134 +452,145 @@ const initAboutPopup = () => {
 };
 
 // ============================================
-// Pop-up du menu avec catégories, détails et prix
+// Gestion menu avec catégories, détails et prix
 // ============================================
 const initMenuPopup = () => {
-  const menuTrigger = document.getElementById('menu-trigger');
-  const menuOverlay = document.getElementById('menu-popup');
-  const menuCloseBtn = document.querySelector('.menu-close');
-  const menuCategoriesContainer = document.getElementById('menu-categories');
-  const menuItemsContainer = document.getElementById('menu-items');
-  const menuDetailContainer = document.getElementById('menu-detail');
+  // Références aux éléments du DOM
+  const menuTrigger = document.getElementById('menu-trigger');     // Bouton pour ouvrir le menu
+  const menuOverlay = document.getElementById('menu-popup');       // Fond sombre du popup
+  const menuCloseBtn = document.querySelector('.menu-close');      // Bouton fermer (X)
+  const categoriesEl = document.getElementById('menu-categories'); // Conteneur des boutons catégories
+  const itemsEl = document.getElementById('menu-items');           // Liste des articles
+  const detailEl = document.getElementById('menu-detail');         // Panneau de détails
 
-  // Récupérer les catégories uniques
-  const categories = ['Tous', ...new Set(menuItems.map(item => item.category))];
+  // Génère un tableau de catégories uniques: ['Tous', 'Boissons', 'Desserts', 'Repas']
+  // new Set() élimine les doublons, puis ... (spread) reconvertit en tableau
+  const categories = ['Tous','Boissons', 'Desserts', 'Repas'];
+  
+  // État de l'interface - quelle catégorie est active et quel article est sélectionné
   let activeCategory = 'Tous';
-  let selectedItemId = null;
+  let selectedId = null;
 
-  // Afficher les catégories
-  const renderCategories = () => {
-    menuCategoriesContainer.innerHTML = categories
-      .map(cat => `
-        <button class="category-btn ${cat === activeCategory ? 'active' : ''}" data-category="${cat}">
-          ${cat}
-        </button>
-      `)
-      .join('');
-
-    // Ajouter des écouteurs pour changer la catégorie
-    document.querySelectorAll('.category-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        activeCategory = btn.dataset.category;
-        renderMenu();
-      });
-    });
-  };
-
-  // Afficher les articles du menu
-  const renderMenu = () => {
-    // Filtrer par catégorie
-    let filtered = activeCategory === 'Tous'
-      ? menuItems
-      : menuItems.filter(item => item.category === activeCategory);
-
-    // Afficher les articles filtrés
-    menuItemsContainer.innerHTML = filtered
-      .map(item => `
-        <div class="menu-item ${item.id === selectedItemId ? 'selected' : ''}" data-id="${item.id}">
-          <span class="menu-item-name">${item.name}</span>
-          <span class="menu-item-price">$${Math.min(...Object.values(item.sizes)).toFixed(2)}</span>
-        </div>
-      `)
-      .join('');
-
-    // Mettre à jour le bouton de catégorie actif
-    document.querySelectorAll('.category-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.category === activeCategory);
+  // Fonction principale qui met à jour tout l'affichage
+  // Appelée à chaque changement (catégorie ou sélection)
+  const render = () => {
+    // ========== RENDU DES CATÉGORIES ==========
+    // Génère les boutons de catégorie avec la classe 'active' sur celui sélectionné
+    categoriesEl.innerHTML = categories.map(cat => 
+      `<button class="category-btn ${cat === activeCategory ? 'active' : ''}">${cat}</button>`
+    ).join('');
+    
+    // Attache un onclick à chaque bouton catégorie
+    // i correspond à l'index dans le tableau (array) categories
+    categoriesEl.querySelectorAll('.category-btn').forEach((btn, i) => {
+      btn.onclick = () => { activeCategory = categories[i]; render(); };
     });
 
-    // Ajouter des écouteurs pour les articles du menu
-    document.querySelectorAll('.menu-item').forEach(item => {
-      item.addEventListener('click', () => {
-        selectedItemId = parseInt(item.dataset.id);
-        renderMenu();
-        renderDetail();
-      });
+    // ========== RENDU DES ARTICLES ==========
+    // Filtre les articles selon la catégorie active (ou tous si 'Tous')
+    const items = activeCategory === 'Tous' ? menuItems : menuItems.filter(i => i.category === activeCategory);
+    
+    // Génère le HTML pour chaque article avec nom et prix minimum
+    // Math.min(...Object.values(item.sizes)) trouve le prix le plus bas parmi les tailles
+    itemsEl.innerHTML = items.map(item => `
+      <div class="menu-item ${item.id === selectedId ? 'selected' : ''}" data-id="${item.id}">
+        <span class="menu-item-name">${item.name}</span>
+        <span class="menu-item-price">$${Math.min(...Object.values(item.sizes)).toFixed(2)}</span>
+      </div>
+    `).join('');
+
+    // Attache un onclick à chaque article
+    // +el.dataset.id convertit le string en number
+    itemsEl.querySelectorAll('.menu-item').forEach(el => {
+      el.onclick = () => { selectedId = +el.dataset.id; render(); };
     });
-  };
 
-  // Afficher les détails de l'article sélectionné
-  const renderDetail = () => {
-    if (!selectedItemId) {
-      menuDetailContainer.innerHTML = '<p class="no-selection">Sélectionnez un article pour voir les détails</p>';
-      return;
-    }
-
-    const item = menuItems.find(m => m.id === selectedItemId);
-    if (!item) return;
-
-    // Générer le HTML pour les prix
-    const pricesHtml = Object.entries(item.sizes)
-      .map(([size, price]) => `
-        <div class="price-item">
-          <div class="price-item-size">${size}</div>
-          <div class="price-item-value">$${price.toFixed(2)}</div>
-        </div>
-      `)
-      .join('');
-
-    // Afficher les détails dans le conteneur
-    menuDetailContainer.innerHTML = `
+    // ========== RENDU DES DÉTAILS DE L'ARTICLE ==========
+    // Trouve l'article sélectionné dans le tableau menuItems
+    const item = menuItems.find(i => i.id === selectedId);
+    
+    // Si un article est sélectionné, affiche ses détails
+    // Sinon, affiche un message par défaut
+    detailEl.innerHTML = item ? `
       <div class="menu-detail-image-container">
         <img src="${item.image}" alt="${item.name}" class="menu-detail-image" onerror="this.parentElement.classList.add('image-error')">
         <div class="menu-detail-placeholder">☕</div>
       </div>
-      <h3>${item.name}</h3>
-      <p style="color: #999; margin: 8px 0; font-size: 13px;">${item.description}</p>
-      
-      <div class="menu-detail-section">
-        <strong>Ingrédients</strong>
-        <p>${item.ingredients.join(', ')}</p>
+      <div class="menu-detail-body">
+        <div class="menu-detail-header">
+          <div class="menu-detail-title-group">
+            <h3>${item.name}</h3>
+            <p class="menu-detail-description">${item.description}</p>
+          </div>
+          <div class="menu-detail-calories">${item.calories} cal</div>
+        </div>
+        <div class="menu-detail-content">
+          <div class="menu-detail-ingredients">
+            <strong>Ingrédients</strong>
+            <p>${item.ingredients.join(', ')}</p>
+          </div>
+          <div class="menu-detail-prices-wrapper">
+            <strong>Tailles & Prix</strong>
+            <div class="menu-prices">
+              ${Object.entries(item.sizes).map(([s, p]) => `
+                <div class="price-item">
+                  <div class="price-item-size">${s}</div>
+                  <div class="price-item-value">$${p.toFixed(2)}</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div class="menu-detail-section">
-        <strong>Tailles & Prix</strong>
-        <div class="menu-prices">${pricesHtml}</div>
-      </div>
-    `;
+    ` : '<p class="no-selection">Sélectionnez un article</p>';
   };
+  //fin de la fonction render
 
-  // Ouvrir le menu au clic
+  // ========== GESTION OUVERTURE/FERMETURE ==========
   menuTrigger.addEventListener('click', () => {
     menuOverlay.classList.add('active');
-    if (!selectedItemId) {
-      renderCategories();
-      renderMenu();
-    }
+    render();
   });
 
-  // Fermer le menu au clic du bouton
   menuCloseBtn.addEventListener('click', () => {
     menuOverlay.classList.remove('active');
   });
-
-  // Fermer le menu en cliquant en dehors du contenu
-  menuOverlay.addEventListener('click', (event) => {
-    if (event.target === menuOverlay) {
+  
+  // Ferme le menu si on clique sur le fond (pas sur le contenu)
+  menuOverlay.addEventListener('click', (e) => {
+    if (e.target === menuOverlay) {
       menuOverlay.classList.remove('active');
     }
   });
 };
+
+// ============================================
+// Musique
+// ============================================
+let music = new Audio(import.meta.env.BASE_URL + 'image/musique.mp3');
+music.loop = true;
+music.volume = 0.1;
+
+// Jouer la musique automatiquement après interaction utilisateur
+const musicToggle = document.getElementById('music-toggle');
+
+// Jouer la musique dès que le DOM est chargé 
+document.addEventListener('DOMContentLoaded', () => {
+  // Vérifier si la musique est déjà jouée (dans le cas où l'utilisateur a interagi avant)
+  music.play()
+  music.volume = 0.4;
+});
+
+// Toggle pour contrôler la musique
+musicToggle.addEventListener('click', () => {
+  if (music.paused) {
+    music.play();
+    musicToggle.innerHTML = '<img src="./image/sound.png" alt="">';
+  } else {
+    music.pause();
+    musicToggle.innerHTML = '<img src="./image/mute.png" alt="">';
+  }
+});
 
 // ============================================
 // Initialisation

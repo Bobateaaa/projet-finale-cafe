@@ -197,3 +197,112 @@ Pan: Right mouse, or left mouse + ctrl/meta/shiftKey, or arrow keys / touch: two
 >
 > Default is `0`.
 
+
+
+## new DirectionalLight(); + new AmbientLight();
+This light globally illuminates all objects in the scene equally.
+
+```javascript
+// White directional light at half intensity shining from the top.
+const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+scene.add( directionalLight );
+```
+new DirectionalLight( color : number | Color | string, intensity : number )  
+Constructs a new directional light.
+
+| Paramètre   | Description                     | Type                         | Défaut     |
+|-------------|---------------------------------|------------------------------|------------|
+| `color`     | The light's color.              | `number \| Color \| string`  | `0xffffff` |
+| `intensity` | The light's strength/intensity. | `number`                     | `1`        |
+
+
+## Object 3D
+
+#### Method utilisées
+
+.add( object : Object3D ) : Object3D
+Adds the given 3D object as a child to this 3D object. An arbitrary number of objects may be added. Any current parent on an object passed in here will be removed, since an object can have at most one parent.
+
+object	
+The 3D object to add.
+
+.lookAt( x : number | Vector3, y : number, z : number )
+Rotates the object to face a point in world space.
+
+This method does not support objects having non-uniformly-scaled parent(s).
+
+x	
+The x coordinate in world space. Alternatively, a vector representing a position in world space
+
+y	
+The y coordinate in world space.
+
+z	
+The z coordinate in world space.
+
+#### Propreté utilisées
+
+.position : Vector3
+Represents the object's local position.
+
+Default is (0,0,0).
+
+.scale : Vector3
+Represents the object's local scale.
+
+Default is (1,1,1).
+
+.visible : boolean
+When set to true, the 3D object gets rendered.
+
+Default is true.
+
+## .set(); (METHOD)
+
+Utilisées à travers une varitété de fonction afin d'assignés des valeurs.
+
+
+## GLTFLoader
+A loader for the glTF 2.0 format.
+
+glTF (GL Transmission Format) is an open format specification whenever possible. Be advised that image bitmaps are not automatically GC-collected when they are no longer referenced, and they require special handling during the disposal process.
+
+#### Constructor
+new GLTFLoader( manager : LoadingManager )
+Constructs a new glTF loader.
+
+manager	
+The loading manager.
+
+```JAVASCRIPT
+const loader = new GLTFLoader();
+// Optional: Provide a DRACOLoader instance to decode compressed mesh data
+const dracoLoader = new DRACOLoader();
+dracoLoader.setDecoderPath( '/examples/jsm/libs/draco/' );
+loader.setDRACOLoader( dracoLoader );
+const gltf = await loader.loadAsync( 'models/gltf/duck/duck.gltf' );
+scene.add( gltf.scene );
+```
+
+ #### Method 
+
+ .setDRACOLoader( dracoLoader : DRACOLoader ) : GLTFLoader
+Sets the given Draco loader to this loader. Required for decoding assets compressed with the KHR_draco_mesh_compression extension.
+
+## dracoLoader	
+The Draco loader to set.
+
+Returns: A reference to this loader.
+
+DRACOLoader
+A loader for the Draco format.
+
+Draco is an open source library for compressing and decompressing 3D meshes and point clouds. Compressed geometry can be significantly smaller, at the cost of additional decoding time on the client device.
+
+Standalone Draco files have a .drc extension, and contain vertex positions, normals, colors, and other attributes. Draco files do not contain materials, textures, animation, or node hierarchies – to use these features, embed Draco geometry inside of a glTF file. A normal glTF file can be converted to a Draco-compressed glTF file using glTF-Pipeline. When using Draco with glTF, an instance of DRACOLoader will be used internally by GLTFLoader.
+
+It is recommended to create one DRACOLoader instance and reuse it to avoid loading and creating multiple decoder instances.
+
+DRACOLoader will automatically use either the JS or the WASM decoding library, based on browser capabilities.
+
+Code Example

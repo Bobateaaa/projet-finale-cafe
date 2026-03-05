@@ -16,7 +16,6 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 // ============================================
 // Variables 
 // ============================================
-const zoomLevel = 0.1; // controler le zoom
 // Animation
 const clock = new THREE.Clock();
 let mixer = null;
@@ -111,8 +110,8 @@ const colorGradingShader = {
     tDiffuse: { value: null },
     saturation: { value: 1.1 },          // 0 = grayscale, 1 = normal, 2 = hypersaturated
     brightness: { value: 1.2 },          // 0 = black, 1 = normal, 2 = bright
-    contrast: { value: 0.6 },           // 0 = gray, 1 = normal, 2 = high contrast
-    highlightTint: { value: new THREE.Vector3(1.0, 0.85, 0.90) },  // Light pinkish for bright tones
+    contrast: { value: 0.7 },           // 0 = gray, 1 = normal, 2 = high contrast
+    highlightTint: { value: new THREE.Vector3(1.0, 1, 1) },  // Light pinkish for bright tones
     shadowTint: { value: new THREE.Vector3(1.0, 0.95, 0.98) }    // Subtle pink for dark tones
   },
   vertexShader: `
@@ -189,11 +188,12 @@ controls.enablePan = false; //empecher le déplacement latéral
 
 // Limites par défaut pour empêcher de regarder sous le modèle
 controls.minPolarAngle = 0;
-controls.maxPolarAngle = (Math.PI / 2) + 0.05; 
+controls.maxPolarAngle = Math.PI / 2 ; 
 controls.minDistance = 1;
-controls.maxDistance = 130;
+controls.maxDistance = 140;
 controls.autoRotate = true; //permet la cam du tourner automatiquement
-controls.autoRotateSpeed = -0.1; //assigner la vit de rotation de autoRotate
+controls.autoRotateSpeed = -0.17; //assigner la vitesse de rotation de autoRotate
+
 
 //------------------------------
 // Ajout de lumières pour un éclairage 
@@ -209,68 +209,94 @@ scene.add(blueLight);
 scene.add(new THREE.AmbientLight(0x404040, 1.0));
 
 
+
+
+/*------------------------------
+ Charger le modèle GLTF/GLB 
+ loader.load(gltfPath, onLoad, onProgress, onError)
+
+
+ @param {string} gltfPath - chemin vers le fichier GLTF/GLB
+ @param {function} onLoad - callback appelé une fois le modèle chargé avec le paramètre gltf (le modèle chargé)
+ @param {function} onProgress - callback appelé pendant le chargement avec le paramètre progress (progression du chargement)
+ @param {function} onError - callback appelé si une erreur de chargement se produit avec le paramètre error (l'erreur rencontrée)
+----------------------------- */
 loader.load(
   gltfPath,
+  //OnLoad callback: une fois le modèle chargé, on l'ajoute à la scène et on configure la caméra
   (gltf) => {
     const model = gltf.scene;
     model.scale.set(1, 1, 1);
 
-    const box = new THREE.Box3().setFromObject(model);
-    const center = box.getCenter(new THREE.Vector3());
-    model.position.sub(center);
-    const originOffset = new THREE.Vector3(0, -5, 0);
-    model.position.add(originOffset);
-    scene.add(model);
+    const box = new THREE.Box3().setFromObject(model); // Calculer la boîte englobante du modèle pour le centrer et ajuster la caméra
+    const center = box.getCenter(new THREE.Vector3()); //Returne le centre de la boite sous forme de Vector3
+    model.position.sub(center); // Centrer le modèle en soustrayant le centre de sa position
+    const originOffset = new THREE.Vector3(0, -5, 0); //Variable de decalage pour ajuster la position verticale du modèle
+    model.position.add(originOffset); // Appliquer le décalage pour ajuster la position verticale du modèle
+    scene.add(model); // Ajouter le modèle à la scène
 
-    const selectedObjects = [];
+
+
+    const selectedObjects = []; //array pour stocker les objets sélectionnés pour l'OutlinePass
+
+    /* Parcourir tous les enfants du modèle et ajouter les meshes à selectedObjects pour l'OutlinePass
+    
+    @param {THREE.Object3D} child - chaque enfant du modèle parcouru
+    */
     model.traverse((child) => {
+      // Si l'enfant est un mesh, l'ajouter à selectedObjects pour qu'il soit affecté par l'OutlinePass
       if (child.isMesh) selectedObjects.push(child);
     });
-    if (outlinePass && selectedObjects.length > 0) {
-      outlinePass.selectedObjects = selectedObjects;
-    }
+
+    // Assigner les objets sélectionnés à l'OutlinePass pour qu'ils soient entourés d'un contour
+    outlinePass.selectedObjects = selectedObjects;
+
+
 
     const size = box.getSize(new THREE.Vector3());
     const maxDim = Math.max(size.x, size.y, size.z);
     const fov = camera.fov * (Math.PI / 180);
-    let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
-    cameraZ *= zoomLevel;
-    camera.position.set(0, 0, cameraZ);
-    camera.near = Math.max(0.1, cameraZ / 100);
-    camera.far = cameraZ * 100;
-    camera.updateProjectionMatrix();
-    camera.lookAt(0, 0, 0);
+    const cameraZ = Math.max(120, Math.abs(maxDim / 2 / Math.tan(fov / 2))); // Distance dynamique avec minimum de sécurité
 
-    controls.target.set(0, 0, 10);
-    controls.update();
+    const lookTarget = new THREE.Vector3(0, 0, 0);
+    camera.position.set(0, lookTarget.y, cameraZ); // Même hauteur que la cible => vue horizontale
+    camera.updateProjectionMatrix(); // Mettre à jour la matrice de projection de la caméra après avoir modifié sa position
+    camera.lookAt(lookTarget); // Orienter la caméra vers le centre de la scène
 
-    if (gltf.animations && gltf.animations.length) {
-      mixer = new THREE.AnimationMixer(model);
-      gltf.animations.forEach((clip) => mixer.clipAction(clip).play());
-      console.log('Animations GLTF trouvées et en cours');
-    }
-    console.log('GLTF chargé et ajouté à la scène');
+    controls.target.copy(lookTarget);
+    controls.update(); // Mettre à jour les contrôles pour refléter la nouvelle position de la caméra
+
+    console.log('GLTF chargé et ajouté à la scène'); //retourne que le modèle a été chargé et ajouté à la scène
   },
+  //OnProgress callback: afficher la progression du chargement dans la console
   (progress) => {
-    console.log('Chargement:', (progress.loaded / progress.total * 100).toFixed(1) + '%');
+    console.log('Chargement:', (progress.loaded / progress.total * 100).toFixed(1) + '%'); // Afficher la progression du chargement en pourcentage dans la console
   },
+  //OnError callback: afficher une erreur si le chargement échoue
   (error) => {
-    console.error('Erreur de chargement GLTF:', error);
+    console.error('Erreur de chargement GLTF:', error); // Afficher une erreur dans la console si le chargement du modèle échoue
   }
-);
+); 
 
 
 //=========================================================
 //  Particules pétales : petites pétales de cerisier tombant
 //=========================================================
 const textureLoader = new THREE.TextureLoader();
+// Charger la texture des pétales (sprite pixel-art)
 const petalTexture = textureLoader.load(import.meta.env.BASE_URL + 'image/pixel-art-sakura-flower.png');
+// Garder un rendu net (non flou) pour le style pixel-art
 petalTexture.magFilter = THREE.NearestFilter;
-petalTexture.minFilter = THREE.NearestFilter;
+petalTexture.minFilter = THREE.NearestFilter; 
 
+// Nombre total de particules pétales affichées
 const petalCount = 180;
-const petalGeom = new THREE.BufferGeometry();
+const petalGeom = new THREE.BufferGeometry(); // BufferGeometry pour stocker les données des pétales (positions, tailles, phases, vitesses) de manière efficace pour le GPU
+
+//Float32Array = stockage brut des nombres, puis BufferGeometry/BufferAttribute l’utilisent pour le rendu.
+// Chaque tableau contient un paramètre par pétale (sauf positions: x,y,z donc *3)
 const petalPositions = new Float32Array(petalCount * 3);
+const petalBaseX = new Float32Array(petalCount);
 const petalSizes = new Float32Array(petalCount);
 const petalPhase = new Float32Array(petalCount);
 const petalSpeed = new Float32Array(petalCount);
@@ -279,10 +305,12 @@ const petalFallSpeed = new Float32Array(petalCount);
 const petalSwaySpeed = new Float32Array(petalCount);
 const petalSwayAmount = new Float32Array(petalCount);
 
+// Initialiser les données des pétales avec des positions aléatoires, des tailles, des phases et des vitesses pour créer un effet de chute 
 for (let i = 0; i < petalCount; i++) {
-  const x = (Math.random() - 0.5) * 300;
+  const x = (Math.random() - 0.5) * 350;
   const y = Math.random() * 100;
   const z = (Math.random() - 0.5) * 500;
+  petalBaseX[i] = x;
   petalPositions[i * 3] = x;
   petalPositions[i * 3 + 1] = y;
   petalPositions[i * 3 + 2] = z;
@@ -296,11 +324,17 @@ for (let i = 0; i < petalCount; i++) {
   petalSwayAmount[i] = 15 + Math.random() * 30;
 }
 
-petalGeom.setAttribute('position', new THREE.BufferAttribute(petalPositions, 3));
-petalGeom.setAttribute('aSize', new THREE.BufferAttribute(petalSizes, 1));
-petalGeom.setAttribute('aPhase', new THREE.BufferAttribute(petalPhase, 1));
-petalGeom.setAttribute('aSpeed', new THREE.BufferAttribute(petalSpeed, 1));
+const petalPositionAttribute = new THREE.BufferAttribute(petalPositions, 3); // Créer un BufferAttribute pour les positions des pétales, avec 3 composantes par pétale (x, y, z)
+petalPositionAttribute.setUsage(THREE.DynamicDrawUsage); // Indiquer que les positions seront mises à jour fréquemment pour permettre l'animation de chute des pétales
+petalGeom.setAttribute('position', petalPositionAttribute); // Ajouter les positions des pétales à la géométrie en tant qu'attribut "position"
+// Attributs custom lus dans le shader (taille + vitesse)
+petalGeom.setAttribute('aSize', new THREE.BufferAttribute(petalSizes, 1)); // Ajouter les tailles des pétales à la géométrie en tant qu'attribut "aSize"géométrie en tant qu'attribut "aPhase"
+petalGeom.setAttribute('aPhase', new THREE.BufferAttribute(petalPhase, 1)); // Ajouter la phase de scintillement pour chaque pétale
+petalGeom.setAttribute('aSpeed', new THREE.BufferAttribute(petalSpeed, 1)); //Ajouter les vitesses des pétales à la géométrie en tant qu'attribut "aSpeed" 
 
+// Matériau shader:
+// - vertexShader: gère la position et la taille des points (pétales) en fonction de leur distance à la caméra pour un rendu correct en perspective, et transmet les phases et vitesses aux shaders de fragment pour l'animation du scintillement
+// - fragmentShader: gere la couleur et la transparence des pétales, applique un effet de scintillement basé sur le temps et les vitesses individuelles pour donner vie aux pétales qui tombent
 const petalMat = new THREE.ShaderMaterial({
   transparent: true,
   depthWrite: false,
@@ -342,33 +376,37 @@ const petals = new THREE.Points(petalGeom, petalMat);
 scene.add(petals);
 
 function animate() {
+  // Boucle de rendu (appelée à chaque frame)
   requestAnimationFrame(animate);
   const delta = clock.getDelta();
+  const elapsedTime = clock.elapsedTime;
   if (mixer) mixer.update(delta);
   
   // Mettre à jour les pétales de sakura
-  if (typeof petals !== 'undefined' && petalGeom && petalGeom.attributes.position) {
-    const pos = petalGeom.attributes.position.array;
-    for (let i = 0; i < petalCount; i++) {
-      const idx = i * 3;
-      
-      // Chute verticale
-      pos[idx + 1] -= petalFallSpeed[i] * delta;
-      
-      // Sway horizontal sinusoïdal
-      const swayX = Math.sin(clock.elapsedTime * petalSwaySpeed[i] + petalPhase[i]) * petalSwayAmount[i];
-      pos[idx] += swayX * delta * 2;
-      
-      // Réinitialiser la position si les pétales tombent trop bas
-      if (pos[idx + 1] < -100) {
-        pos[idx + 1] = 100;
-        pos[idx] = (Math.random() - 0.5) * 200;
-        pos[idx + 2] = (Math.random() - 0.5) * 200;
-      }
+  const pos = petalPositionAttribute.array;
+  for (let i = 0; i < petalCount; i++) {
+    // Gerer les 3 composantes de position (x, y, z) pour chaque pétale
+    const idx = i * 3;
+
+    // Chute verticale
+    pos[idx + 1] -= petalFallSpeed[i] * delta;
+
+    // Sway horizontal sinusoïdal autour d'une base fixe (pas de dérive)
+    pos[idx] = petalBaseX[i] + Math.sin(elapsedTime * petalSwaySpeed[i] + petalPhase[i]) * petalSwayAmount[i];
+
+    // Réinitialiser la position si les pétales tombent trop bas
+    if (pos[idx + 1] < -100) {
+      // Recycle le pétale en haut pour créer une chute continue
+      pos[idx + 1] = 100;
+      petalBaseX[i] = (Math.random() - 0.5) * 350;
+      pos[idx] = petalBaseX[i];
+      pos[idx + 2] = (Math.random() - 0.5) * 200;
     }
-    petalGeom.attributes.position.needsUpdate = true;
-    if (petalMat && petalMat.uniforms) petalMat.uniforms.uTime.value += delta;
   }
+  // Indiquer à Three.js d'envoyer les nouvelles positions au GPU
+  petalPositionAttribute.needsUpdate = true;
+  // Fait avancer le temps du shader (scintillement)
+  if (petalMat && petalMat.uniforms) petalMat.uniforms.uTime.value += delta;
 
   controls.update();
   composer.render();
@@ -376,7 +414,13 @@ function animate() {
 
 animate();
 
-// Gérer le redimensionnement de la fenêtre
+/* Gérer le redimensionnement de la fenêtre
+- Met à jour l'aspect ratio de la caméra pour correspondre à la nouvelle taille de la fenêtre
+- Met à jour la matrice de projection de la caméra pour que les objets soient rendus correctement avec le nouvel aspect ratio
+- Met à jour la taille du renderer pour qu'elle corresponde à la nouvelle taille de la fenêtre
+@param {Event} resize - l'événement de redimensionnement de la fenêtre
+*/
+
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
