@@ -286,6 +286,24 @@ scene.add( gltf.scene );
 
  #### Method 
 
+.load( url : string, onLoad : function, onProgress : onProgressCallback, onError : onErrorCallback )
+Starts loading from the given URL and passes the loaded glTF asset to the onLoad() callback.
+
+url	
+The path/URL of the file to be loaded. This can also be a data URI.
+
+onLoad	
+Executed when the loading process has been finished.
+
+onProgress	
+Executed while the loading is in progress.
+
+onError	
+Executed when errors occur.
+
+Overrides: Loader#load
+
+
  .setDRACOLoader( dracoLoader : DRACOLoader ) : GLTFLoader
 Sets the given Draco loader to this loader. Required for decoding assets compressed with the KHR_draco_mesh_compression extension.
 
@@ -305,4 +323,184 @@ It is recommended to create one DRACOLoader instance and reuse it to avoid loadi
 
 DRACOLoader will automatically use either the JS or the WASM decoding library, based on browser capabilities.
 
+## new THREE.Box3()
+
+Represents an axis-aligned bounding box (AABB) in 3D space.
+
+Constructor
+new Box3( min : Vector3, max : Vector3 )
+Constructs a new bounding box.
+
+min	
+A vector representing the lower boundary of the box.
+
+Default is (Infinity,Infinity,Infinity).
+
+max	
+A vector representing the upper boundary of the box.
+
+Default is (-Infinity,-Infinity,-Infinity).
+
+#### Method
+.setFromObject( object : Object3D, precise : boolean ) : Box3
+Computes the world-axis-aligned bounding box for the given 3D object (including its children), accounting for the object's, and children's, world transforms. The function may result in a larger box than strictly necessary.
+
+object	
+The 3D object to compute the bounding box for.
+
+precise	
+If set to true, the method computes the smallest world-axis-aligned bounding box at the expense of more computation.
+
+Default is false.
+
+Returns: A reference to this bounding box.
+
+
+.getCenter( target : Vector3 ) : Vector3
+Returns the center point of this box.
+
+target	
+The target vector that is used to store the method's result.
+
+Returns: The center point.
+
+
+## Vector3
+Class representing a 3D vector. A 3D vector is an ordered triplet of numbers (labeled x, y and z), which can be used to represent a number of things, such as:
+
+A point in 3D space.
+A direction and length in 3D space. In three.js the length will always be the Euclidean distance(straight-line distance) from (0, 0, 0) to (x, y, z) and the direction is also measured from (0, 0, 0) towards (x, y, z).
+Any arbitrary ordered triplet of numbers.
+There are other things a 3D vector can be used to represent, such as momentum vectors and so on, however these are the most common uses in three.js.
+
+Iterating through a vector instance will yield its components (x, y, z) in the corresponding order.
+
+const a = new THREE.Vector3( 0, 1, 0 );
+//no arguments; will be initialised to (0, 0, 0)
+const b = new THREE.Vector3( );
+const d = a.distanceTo( b );
+
+
+Constructor
+new Vector3( x : number, y : number, z : number )
+Constructs a new 3D vector.
+
+x	
+The x value of this vector.
+
+Default is 0.
+
+y	
+The y value of this vector.
+
+Default is 0.
+
+z	
+The z value of this vector.
+
+Default is 0.
+
+### Method
+
+.sub( v : Vector3 ) : Vector3
+Subtracts the given vector from this instance.
+
+v	
+The vector to subtract.
+
+
+.getSize( target : Vector3 ) : Vector3
+Returns the dimensions of this box.
+
+target	
+The target vector that is used to store the method's result.
+
+Returns: The size.
+
+
+## TextureLoader
+Class for loading textures. Images are internally loaded via ImageLoader.
+
+Please note that TextureLoader has dropped support for progress events in r84. For a TextureLoader that supports progress events, see this thread.
+
 Code Example
+const loader = new THREE.TextureLoader();
+const texture = await loader.loadAsync( 'textures/land_ocean_ice_cloud_2048.jpg' );
+const material = new THREE.MeshBasicMaterial( { map:texture } );
+
+Constructor
+new TextureLoader( manager : LoadingManager )
+Constructs a new texture loader.
+
+manager	
+The loading manager.
+
+Methods
+.load( url : string, onLoad : function, onProgress : onProgressCallback, onError : onErrorCallback ) : Texture
+Starts loading from the given URL and pass the fully loaded texture to the onLoad() callback. The method also returns a new texture object which can directly be used for material creation. If you do it this way, the texture may pop up in your scene once the respective loading process is finished.
+
+url	
+The path/URL of the file to be loaded. This can also be a data URI.
+
+onLoad	
+Executed when the loading process has been finished.
+
+onProgress	
+Unsupported in this loader.
+
+onError	
+Executed when errors occur.
+
+Overrides: Loader#load
+Returns: The texture.
+
+
+## Texture 
+
+#### Method
+.magFilter : NearestFilter | NearestMipmapNearestFilter | NearestMipmapLinearFilter | LinearFilter | LinearMipmapNearestFilter | LinearMipmapLinearFilter
+How the texture is sampled when a texel covers more than one pixel.
+
+
+.minFilter : NearestFilter | NearestMipmapNearestFilter | NearestMipmapLinearFilter | LinearFilter | LinearMipmapNearestFilter | LinearMipmapLinearFilter
+How the texture is sampled when a texel covers less than one pixel.
+
+
+
+## BufferGeometry
+A representation of mesh, line, or point geometry. Includes vertex positions, face indices, normals, colors, UVs, and custom attributes within buffers, reducing the cost of passing all this data to the GPU.
+
+Code Example
+const geometry = new THREE.BufferGeometry();
+// create a simple square shape. We duplicate the top left and bottom right
+// vertices because each vertex needs to appear once per triangle.
+const vertices = new Float32Array( [
+	-1.0, -1.0,  1.0, // v0
+	 1.0, -1.0,  1.0, // v1
+	 1.0,  1.0,  1.0, // v2
+	 1.0,  1.0,  1.0, // v3
+	-1.0,  1.0,  1.0, // v4
+	-1.0, -1.0,  1.0  // v5
+] );
+// itemSize = 3 because there are 3 values (components) per vertex
+geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
+const material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+const mesh = new THREE.Mesh( geometry, material );
+
+Constructor
+new BufferGeometry()
+Constructs a new geometry.
+
+
+
+## ShaderMaterial
+A material rendered with custom shaders. A shader is a small program written in GLSL. that runs on the GPU. You may want to use a custom shader if you need to implement an effect not included with any of the built-in materials.
+
+There are the following notes to bear in mind when using a ShaderMaterial:
+
+ShaderMaterial can only be used with WebGLRenderer.
+Built in attributes and uniforms are passed to the shaders along with your code. If you don't want that, use RawShaderMaterial instead.
+You can use the directive #pragma unroll_loop_start and #pragma unroll_loop_end in order to unroll a for loop in GLSL by the shader preprocessor. The directive has to be placed right above the loop. The loop formatting has to correspond to a defined standard.
+The loop has to be normalized.
+The loop variable has to be i.
+The value UNROLLED_LOOP_INDEX will be replaced with the explicitly value of i for the given iteration and can be used in preprocessor statements.
