@@ -2,14 +2,14 @@
 /* Polices chargées localement pour l'interface et les titres */
 @font-face {
     font-family: 'Genty Sans';
-        src: url('../public/font/Genty Sans.ttf') format('truetype');
+        src: url('font/Genty Sans.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Providence Sans';
-        src: url('../public/font/Providence Sans Regular.ttf') format('truetype');
+        src: url('font/Providence Sans Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     ascent-override: 85%;
@@ -18,21 +18,21 @@
 
 @font-face {
     font-family: 'Marvel';
-        src: url('../public/font/Marvel-Regular.ttf') format('truetype');
+        src: url('font/Marvel-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Nunito';
-        src: url('../public/font/Nunito-VariableFont_wght.ttf') format('truetype');
+        src: url('font/Nunito-VariableFont_wght.ttf') format('truetype');
     font-weight: 200 1000;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Patrick Hand SC';
-        src: url('../public/font/PatrickHandSC-Regular.ttf') format('truetype');
+        src: url('font/PatrickHandSC-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
