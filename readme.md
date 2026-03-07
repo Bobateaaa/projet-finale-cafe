@@ -2,8 +2,9 @@
 
 Technologies utilisées: Three.js, HTML, CSS, Javascript, Node.js, Vite.js
 
-Lien vers le site: https://bobateaaa.github.io/projet-finale-cafe/
-Lien vers le Github: https://github.com/Bobateaaa/projet-finale-cafe
+> Lien vers le site: https://bobateaaa.github.io/projet-finale-cafe/
+
+> Lien vers le Github: https://github.com/Bobateaaa/projet-finale-cafe
 
 ______________________________________________________________________
 Liste des fichiers sources créer: 
