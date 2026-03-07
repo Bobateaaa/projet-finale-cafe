@@ -15,6 +15,7 @@
     ---------------------------------------- -->
     <script type="module" src="main.js"></script>
     <script type="module" src="UI.js"></script>
+    <script type="module" src="mouse.js"></script>
 
 
 
@@ -25,7 +26,7 @@
 
       <div class="starting-content">
         <h1>Bienvenue</h1>
-        <p>Explorer notre café</p>
+        <p>Pour naviguer le café, vous pouvez zoomer avec la molette et vous déplacer en glissant avec le clic gauche.</p>
         <button id="enter-btn" class="enter-button">Entrer</button>
       </div>
 
@@ -64,6 +65,7 @@
 
         <h2>À propos</h2>
 
+        <div class="about-body">
         <section>
           <img src="./image/kirb.webp" alt="Photo de Matilda Kang">
             <div>
@@ -76,27 +78,19 @@
         </section>
         
         <section>
-          <h3>Projet de fin d'études</h3>
-          <strong>Description</strong>
           <p>Passionnée par le monde de la gastronomie et curieuse d'apprendre Blender et Three.js, j'ai modélisé ce petit café et l'ai rendu interactif sur le web. Cliquez, glissez, explorez — le tout réalisé en 6 semaines pour mon projet de fin d'études!</p>
 
-          <strong>Année réalisée</strong>
-          <p>2026</p>
-
-          <strong>Outils utilisés</strong>
-          <ul>
-            <li>Blender: Modélisation 3D</li>
-            <li>Three.js: Rendu et interactivité web</li>
-            <li>HTML/CSS/JavaScript: Interface utilisateur</li>
-            <li>Vite: Outil de build et de développement</li>
-            <li>Node.js: Environnement d'exécution JavaScript</li>
-          </ul>
+          <div class="tools-list">
+            <span>Blender</span>
+            <span>Three.js</span>
+            <span>HTML/CSS/JavaScript</span>
+            <span>Vite</span>
+            <span>Node.js</span>
+          </div>
         </section>
 
-        <section>
-          <h3>Crédits</h3>
-          <p>Music by <a href="https://pixabay.com/users/fassounds-3433550/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=374831">FASSounds</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=374831">Pixabay</a></p>
-        </section>
+
+        </div>
       </div>
     </div>
 

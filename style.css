@@ -1,11 +1,57 @@
+/* ========================== Polices ========================== */
+/* Polices chargées localement pour l'interface et les titres */
+@font-face {
+    font-family: 'Genty Sans';
+    src: url('/font/Genty Sans.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Providence Sans';
+    src: url('/font/Providence Sans Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    ascent-override: 85%;
+    descent-override: 20%;
+}
+
+@font-face {
+    font-family: 'Marvel';
+    src: url('/font/Marvel-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('/font/Nunito-VariableFont_wght.ttf') format('truetype');
+    font-weight: 200 1000;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Patrick Hand SC';
+    src: url('/font/PatrickHandSC-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Providence Sans', Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
+    font-size: 18px;
+    font-weight: 600;
 
     display: flex;
     justify-content: center;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Patrick Hand SC', Arial, sans-serif;
+    letter-spacing: 0.5px;
 }
 
 img {
@@ -14,7 +60,8 @@ img {
     align-self: center;
 }
 
-/* Starting Screen Styles */
+/* ========================== Écran de démarrage ========================== */
+/* Styles pour l'écran d'accueil initial et le bouton d'entrée */
 .starting-screen {
     position: fixed;
     top: 0;
@@ -66,14 +113,16 @@ img {
     margin: 0 0 15px 0;
     color: hsl(0, 100%, 86%);
     font-size: 36px;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Patrick Hand SC', Arial, sans-serif;
 }
 
 .starting-content p {
     margin: 0 0 30px 0;
     color: hsl(0, 100%, 86%);
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.5;
+    font-weight: 600;
+    font-family: 'Providence Sans', Arial, sans-serif;
 }
 
 .enter-button {
@@ -81,11 +130,11 @@ img {
     color: #090909;
     border: 2px solid rgb(245, 220, 238);
     padding: 12px 40px;
-    font-size: 16px;
+    font-size: 18px;
     border-radius: 50px;
     cursor: pointer;
     font-weight: 600;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Providence Sans', Arial, sans-serif;
     transition: all 0.3s ease;
 }
 
@@ -99,6 +148,8 @@ img {
     transform: scale(0.98);
 }
 
+/* ========================== Navigation ========================== */
+/* Barre de navigation, boutons et contrôle du son */
 nav {
     position: absolute;
     background-color: #98989800;
@@ -121,14 +172,24 @@ nav {
 }
 
 .btn {
-    color: #090909;
-    background-color: rgb(245, 220, 238);
+    color: rgba(245, 220, 238, 0.8);
+    background-color: transparent;
+    border: 2px solid rgba(245, 220, 238, 0.4);
     text-decoration: none;
     font-size: 18px;
-    padding: 10px 30px;
+    padding: 6px 30px;
     border-radius: 50px;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Patrick Hand SC', Arial, sans-serif;
     font-weight: 500;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.btn:hover {
+    background-color: rgba(245, 220, 238, 0.2);
+    border-color: rgb(245, 220, 238);
 }
 
 .btn-sound {
@@ -136,7 +197,19 @@ nav {
     display: flex;
 }
 
-/* About Pop-up Styles */
+.btn-sound img {
+    width: 20px;
+    height: 20px;
+    filter: invert(98%) sepia(100%) saturate(1000%) hue-rotate(291deg) brightness(1) contrast(0.97) opacity(0.45);
+    transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.btn-sound:hover img {
+    filter: invert(100%) sepia(100%) saturate(1000%) hue-rotate(291deg) brightness(1.05) contrast(1) opacity(1);
+}
+
+/* ========================== À propos ========================== */
+/* Styles du pop-up « À propos » (fenêtre modale, contenu et mise en page) */
 .about-overlay {
     display: none;
     position: fixed;
@@ -156,14 +229,14 @@ nav {
 }
 
 .about-content {
-    background: linear-gradient(145deg, #1a1a1a 0%, #252525 100%);
-    padding: 32px;
-    border-radius: 16px;
-    max-width: 520px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #252525 100%);
+    padding: 0;
+    border-radius: 15px;
+    max-width: 640px;
     width: 90%;
     max-height: 85vh;
     overflow-y: auto;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
     position: relative;
     animation: slideIn 0.3s ease-out;
 }
@@ -194,26 +267,30 @@ nav {
 }
 
 .about-content h2 {
-    margin: 0 0 24px 0;
+    margin: 0;
     color: rgb(245, 220, 238);
-    font-size: 28px;
-    font-family: 'Courier New', Courier, monospace;
-    padding-bottom: 14px;
-    border-bottom: 2px solid rgba(245, 220, 238, 0.3);
+    font-size: 32px;
+    font-family: 'Patrick Hand SC', Arial, sans-serif;
+    padding: 30px 30px 20px;
+    border-bottom: 2px solid rgba(245, 220, 238, 0.2);
 }
 
 .about-content h3 {
     margin: 0 0 12px 0;
     color: #fff;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 700;
+    font-family: 'Patrick Hand SC', Arial, sans-serif;
+    letter-spacing: 0.3px;
 }
 
 .about-content p {
-    color: #bbb;
+    color: #e0e0e0;
     line-height: 1.6;
-    font-size: 14px;
-    margin: 0 0 8px 0;
+    font-size: 15px;
+    margin: 0 0 10px 0;
+    font-weight: 400;
+    font-family: 'Providence Sans', Arial, sans-serif;
 }
 
 .about-content strong {
@@ -221,96 +298,128 @@ nav {
     color: rgb(245, 220, 238);
     font-size: 12px;
     text-transform: uppercase;
-    letter-spacing: 0.8px;
+    letter-spacing: 1px;
     margin: 16px 0 6px 0;
-    font-weight: 700;
+    font-weight: 600;
+    font-family: 'Providence Sans', Arial, sans-serif;
 }
 
 .about-content ul {
     margin: 0;
     padding-left: 20px;
-    color: #bbb;
+    color: #e0e0e0;
 }
 
 .about-content ul li {
-    font-size: 13px;
-    line-height: 1.8;
-    color: #bbb;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #e0e0e0;
+    font-weight: 400;
+    font-family: 'Providence Sans', Arial, sans-serif;
 }
 
-.about-content section:first-of-type {
-    margin-bottom: 24px;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 18px;
-    border-radius: 12px;
-    border: 1px solid rgba(245, 220, 238, 0.15);
+/* Espacement augmenté entre les sections dans about-body */
+.about-body section {
+    margin-bottom: 48px;
 }
 
-.about-content section:nth-of-type(2) {
-    margin-bottom: 20px;
+/* Styles de la première section (auteur) déplacés dans la section Auteur ci-dessous */
+
+/* Suppression du margin-bottom pour la 2ème section, géré par la règle générale */
+.about-body section:nth-of-type(2) {
     padding: 0;
     border-radius: 0;
     background: none;
     border: none;
 }
 
-.about-content section:nth-of-type(2) > p {
+.about-body {
+    padding: 30px;
+}
+
+.about-body section:nth-of-type(2) > p {
     margin-bottom: 5%;
 }
 
-.about-content section:nth-of-type(2) h3 {
-    margin-bottom: 16px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid rgba(245, 220, 238, 0.15);
+.about-body section:nth-of-type(2) h3 {
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(245, 220, 238, 0.1);
 }
 
-.about-content section:nth-of-type(2) p {
-    margin-bottom: 12px;
-    line-height: 1.7;
+.about-body section:nth-of-type(2) p {
+    margin-bottom: 20px;
+    line-height: 1.6;
+    font-family: 'Providence Sans', Arial, sans-serif;
+    font-weight: 400;
 }
 
-.about-content section:nth-of-type(2) ul {
+.about-body section:nth-of-type(2) ul {
     margin-top: 8px;
 }
 
-.about-content section:last-of-type {
-    margin-bottom: 0;
+.about-body > *:not(:first-child) {
+    margin: 5px 20px;
 }
 
-/* Author Section */
-.about-content section:first-of-type {
+.tools-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.tools-list span {
+    display: inline-block;
+    padding: 6px 14px;
+    background: rgba(245, 220, 238, 0.15);
+    color: #e8e8e8;
+    font-size: 13px;
+    font-weight: 400;
+    border-radius: 20px;
+    font-family: 'Providence Sans', Arial, sans-serif;
+}
+
+/* Section Auteur */
+.about-body section:first-of-type {
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 18px;
+    border-radius: 10px;
+    border: 1px solid rgba(245, 220, 238, 0.1);
     display: flex;
     align-items: center;
     gap: 18px;
 }
 
-.about-content section:first-of-type img {
-    width: 80px;
-    height: 80px;
+.about-body section:first-of-type img {
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     object-fit: cover;
     flex-shrink: 0;
-    border: 3px solid rgba(245, 220, 238, 0.6);
+    border: 2px solid rgba(245, 220, 238, 0.5);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.about-content section:first-of-type div {
+.about-body section:first-of-type div {
     flex: 1;
 }
 
-.about-content section:first-of-type h3 {
+.about-body section:first-of-type h3 {
     margin: 0 0 4px 0;
     font-size: 18px;
 }
 
-.about-content section:first-of-type p {
-    margin: 0;
+.about-body section:first-of-type p {
+    margin: 0 0 10px 0;
     font-size: 13px;
-    color: #aaa;
+    color: #ccc;
+    font-family: 'Providence Sans', Arial, sans-serif;
 }
 
-/* Social Links */
-.about-content section:first-of-type a {
+/* Liens sociaux */
+.about-body section:first-of-type a {
     display: inline-block;
     padding: 6px 14px;
     margin-right: 8px;
@@ -324,49 +433,20 @@ nav {
     transition: all 0.25s ease;
 }
 
-.about-content section:first-of-type a:hover {
+.about-body section:first-of-type a:hover {
     background: #fff;
     color: #1a1a1a;
     transform: translateY(-2px);
 }
 
-/* Project Section */
-.about-content section:nth-of-type(2) strong:first-of-type {
+/* Section Projet */
+.about-body section:nth-of-type(2) strong:first-of-type {
     margin-top: 0;
-}
-
-/* Credits Section */
-.about-content section:last-of-type {
-    background: rgba(255, 255, 255, 0.03);
-    padding: 14px 18px;
-}
-
-.about-content section:last-of-type h3 {
-    font-size: 14px;
-    margin-bottom: 8px;
-}
-
-.about-content section:last-of-type p {
-    font-size: 12px;
-    color: #999;
-    margin: 0;
-}
-
-.about-content section:last-of-type a {
-    color: rgb(245, 220, 238);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s ease;
-}
-
-.about-content section:last-of-type a:hover {
-    color: #fff;
-    text-decoration: underline;
 }
 
 .about-close {
     position: absolute;
-    top: 18px;
+    top: 28px;
     right: 22px;
     background: none;
     border: none;
@@ -381,6 +461,7 @@ nav {
     align-items: center;
     border-radius: 50%;
     transition: all 0.2s ease;
+    z-index: 10;
 }
 
 .about-close:hover {
@@ -388,7 +469,8 @@ nav {
     color: rgb(245, 220, 238);
 }
 
-/* Menu Pop-up Styles */
+/* ========================== Menu ========================== */
+/* Styles du pop-up Menu : catégories, recherche, liste et détails */
 .menu-overlay {
     display: none;
     position: fixed;
@@ -451,7 +533,7 @@ nav {
     margin: 0 0 20px 0;
     color: rgb(245, 220, 238);
     font-size: 32px;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Patrick Hand SC', Arial, sans-serif;
 }
 
 .menu-search {
@@ -460,8 +542,8 @@ nav {
     margin-bottom: 16px;
     border: 2px solid rgba(245, 220, 238, 0.2);
     border-radius: 8px;
-    font-size: 14px;
-    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    font-family: 'Providence Sans', Arial, sans-serif;
     background-color: rgba(255, 255, 255, 0.05);
     color: #fff;
     transition: all 0.3s ease;
@@ -490,10 +572,10 @@ nav {
     color: #fff;
     border-radius: 25px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     transition: all 0.3s ease;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Providence Sans', Arial, sans-serif;
 }
 
 .category-btn:hover {
@@ -567,15 +649,18 @@ nav {
 }
 
 .menu-item-name {
-    font-weight: 600;
+    font-weight: 700;
     color: #fff;
-    font-size: 14px;
+    font-size: 18px;
+    font-family: 'Patrick Hand SC', Arial, sans-serif;
+    letter-spacing: 1px;
 }
 
 .menu-item-price {
-    color: rgb(245, 220, 238);
-    font-weight: bold;
+    color: rgba(245, 220, 238, 0.6);
+    font-weight: 500;
     font-size: 13px;
+    font-family: 'Providence Sans', Arial, sans-serif;
 }
 
 .menu-detail {
@@ -673,17 +758,21 @@ nav {
 .menu-detail h3 {
     margin: 0 0 6px 0;
     color: #fff;
-    font-size: 20px;
+    font-size: clamp(18px, 1.5vw, 28px);
     line-height: 1.2;
     font-weight: 700;
+    font-family: 'Patrick Hand SC', Arial, sans-serif;
+    letter-spacing: 0.5px;
 }
 
 .menu-detail-description {
     margin: 0;
-    color: #aaa;
-    font-size: 13px;
+    color: #e0e0e0;
+    font-size: 15px;
     line-height: 1.4;
     font-style: italic;
+    font-weight: 300;
+    font-family: 'Providence Sans', Arial, sans-serif;
 }
 
 .menu-detail-calories {
@@ -758,17 +847,25 @@ nav {
     color: rgb(245, 220, 238);
     display: block;
     margin-bottom: 8px;
-    font-size: 11px;
+    font-size: 13px;
     text-transform: uppercase;
-    letter-spacing: 0.8px;
+    letter-spacing: 1.5px;
     font-weight: 700;
+    font-family: 'Patrick Hand SC', Arial, sans-serif;
+    background: rgba(245, 220, 238, 0.1);
+    padding: 5px;
+    padding-left: 10px;
+    border-radius: 5px;
 }
 
 .menu-detail-ingredients p {
+    padding: 5px;
     margin: 0;
-    font-size: 13px;
-    line-height: 1.1;
-    color: #bbb;
+    font-size: 15px;
+    line-height: 1.3;
+    color: #e8e8e8;
+    font-weight: 400;
+    font-family: 'Providence Sans', Arial, sans-serif;
 }
 
 .menu-detail-prices-wrapper {
@@ -782,59 +879,61 @@ nav {
     color: rgb(245, 220, 238);
     display: block;
     margin-bottom: 8px;
-    font-size: 11px;
+    font-size: 13px;
     text-transform: uppercase;
-    letter-spacing: 0.8px;
+    letter-spacing: 1.5px;
     font-weight: 700;
+    font-family: 'Patrick Hand SC', Arial, sans-serif;
+    background: rgba(245, 220, 238, 0.1);
+    padding: 5px;
+    padding-left: 10px;
+    border-radius: 5px;
 }
 
 .menu-prices {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 3px;
 }
 
 .price-item {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0);
+    padding: 5px;
     border-radius: 8px;
-    font-size: 12px;
+    font-size: 14px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.price-item:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 3px 8px rgba(245, 220, 238, 0.2);
-    background: rgba(245, 220, 238, 0.1);
 }
 
 .price-item-size {
-    font-weight: 600;
+    font-weight: 300;
     color: #fff;
     flex: 1;
+    font-family: 'Providence Sans', Arial, sans-serif;
 }
 
 .price-item-value {
     color: rgb(236, 178, 217);
     font-weight: 700;
-    font-size: 14px;
+    font-size: 16px;
     white-space: nowrap;
     margin-left: 8px;
+    font-family: 'Providence Sans', Arial, sans-serif;
 }
 
 .no-selection {
-    color: #aaa;
+    color: #d0d0d0;
     font-style: italic;
     text-align: center;
     padding: 40px 20px;
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Providence Sans', Arial, sans-serif;
 }
 
-/* Responsive Design */
+/* ========================== Responsive ========================== */
+/* Règles adaptatives pour petits écrans (tablettes / mobiles) */
 @media (max-width: 768px) {
     .menu-content {
         max-width: 95%;
@@ -858,5 +957,17 @@ nav {
     .menu-detail {
         order: -1;
         margin-bottom: 10px;
+    }
+}
+
+/* Taille du sous-titre augmentée dans À propos pour une meilleure lisibilité */
+.about-content h3 {
+    font-size: 26px;
+    margin-bottom: 18px;
+}
+
+@media (max-width: 768px) {
+    .about-content h3 {
+        font-size: 20px;
     }
 }

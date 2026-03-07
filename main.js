@@ -414,13 +414,13 @@ function animate() {
 
 animate();
 
+
 /* Gérer le redimensionnement de la fenêtre
 - Met à jour l'aspect ratio de la caméra pour correspondre à la nouvelle taille de la fenêtre
 - Met à jour la matrice de projection de la caméra pour que les objets soient rendus correctement avec le nouvel aspect ratio
 - Met à jour la taille du renderer pour qu'elle corresponde à la nouvelle taille de la fenêtre
 @param {Event} resize - l'événement de redimensionnement de la fenêtre
 */
-
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
