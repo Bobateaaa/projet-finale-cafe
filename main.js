@@ -32,6 +32,10 @@ loader.setDRACOLoader(dracoLoader);
 // MODEL - use BASE_URL for proper path in both dev and production
 const gltfPath = import.meta.env.BASE_URL + 'model/cafeshop_compressed.glb';
 
+const enterBtn = document.getElementById('enter-btn'); // référence au bouton pour entrer dans le café
+
+
+
 
 
 // ============================================
@@ -225,6 +229,9 @@ loader.load(
   gltfPath,
   //OnLoad callback: une fois le modèle chargé, on l'ajoute à la scène et on configure la caméra
   (gltf) => {
+    // Cacher l'UI de chargement une fois le modèle chargé
+    const loadingDiv = document.getElementById('loading');
+    if (loadingDiv) loadingDiv.style.display = 'none';
     const model = gltf.scene;
     model.scale.set(1, 1, 1);
 
@@ -268,9 +275,30 @@ loader.load(
 
     console.log('GLTF chargé et ajouté à la scène'); //retourne que le modèle a été chargé et ajouté à la scène
   },
-  //OnProgress callback: afficher la progression du chargement dans la console
+  //OnProgress callback: afficher la progression du chargement dans la console et dans l'UI
   (progress) => {
-    console.log('Chargement:', (progress.loaded / progress.total * 100).toFixed(1) + '%'); // Afficher la progression du chargement en pourcentage dans la console
+    const percent = (progress.loaded / progress.total * 100).toFixed(1);
+    console.log('Chargement:', percent + '%');
+    const loadingSpan = document.querySelector('.loading-percentage');
+    const enterBtn = document.getElementById('enter-btn');
+
+
+    if (loadingSpan) loadingSpan.textContent = 'Chargement: ' + percent + '%';
+
+    
+    // Lorsque le chargement atteint 100%, afficher un message d'attente et permettre à l'utilisateur de cliquer pour entrer dans le café
+    if (percent >= 100) {
+      if (loadingSpan) loadingSpan.textContent = 'Attendez une seconde...';
+      if (enterBtn) {
+        enterBtn.style.display = 'inline-block';
+        enterBtn.onclick = () => {
+          const loadingDiv = document.getElementById('loading');
+          if (loadingDiv) loadingDiv.style.display = 'none';
+        };
+      }
+    } else {
+      if (enterBtn) enterBtn.style.display = 'none';
+    }
   },
   //OnError callback: afficher une erreur si le chargement échoue
   (error) => {
