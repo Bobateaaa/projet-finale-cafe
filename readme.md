@@ -6,6 +6,8 @@ Technologies utilisées: Three.js, HTML, CSS, Javascript, Node.js, Vite.js
 
 > Lien vers le Github: https://github.com/Bobateaaa/projet-finale-cafe
 
+> Lien vers le document de présentation : https://www.canva.com/design/DAHBJsnnZco/5UjF9J8qDk_8gAxECanE2Q/edit?utm_content=DAHBJsnnZco&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
 ______________________________________________________________________
 Liste des fichiers sources créer: 
 
